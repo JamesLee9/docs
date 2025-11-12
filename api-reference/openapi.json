@@ -1,217 +1,3183 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.3",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
+    "title": "Bookkeeping Api",
+    "description": "API contracts for bookkeeping domain",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://bookkeeping.api.novabook.com",
+      "description": "Production"
+    },
+    {
+      "url": "https://bookkeeping.dev.api.novabook.com",
+      "description": "Development"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "BearerAuth": []
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Clerk JWT authentication token. Obtain via Clerk authentication."
+      }
+    },
+    "schemas": {}
+  },
   "paths": {
-    "/plants": {
+    "/alias/{alias}": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "operationId": "checkAlias",
+        "summary": "Check Alias",
+        "tags": [
+          "Alias"
+        ],
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "alias",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "clientName": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "clientName"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/bookkeeping/transactions/recoded-status": {
+      "post": {
+        "operationId": "checkTransactionsRecodedStatus",
+        "summary": "Check Transactions Recoded Status",
+        "tags": [
+          "Clients"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "recoded": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        }
+                      },
+                      "required": [
+                        "recoded"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transactionIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "transactionIds"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/{clientId}/person/{personId}": {
+      "get": {
+        "operationId": "getAliasById",
+        "summary": "Get Alias By Id",
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/{personId}/aliases": {
+      "get": {
+        "operationId": "getAliasByPersonId",
+        "summary": "Get Alias By Person Id",
+        "tags": [
+          "Person"
+        ],
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/balances/latest/{clientId}": {
+      "get": {
+        "operationId": "getBalancesLatest",
+        "summary": "Get Balances Latest",
+        "tags": [
+          "Balances"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ledgerAccountIds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clientAccountIds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "ledgerAccountBalances": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "accountId": {
+                                "type": "string"
+                              },
+                              "balance": {
+                                "type": "object",
+                                "properties": {
+                                  "amount": {
+                                    "type": "number"
+                                  },
+                                  "currency": {
+                                    "type": "object",
+                                    "description": "Referenced type: Currency (see source contracts for full definition)"
+                                  },
+                                  "precision": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "amount",
+                                  "currency",
+                                  "precision"
+                                ]
+                              },
+                              "timestamp": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "clientId",
+                              "accountId",
+                              "balance",
+                              "timestamp"
+                            ]
+                          }
+                        },
+                        "clientAccountBalances": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "accountId": {
+                                "type": "string"
+                              },
+                              "accountType": {
+                                "type": "string",
+                                "enum": [
+                                  "depository"
+                                ]
+                              },
+                              "availableBalance": {
+                                "type": "object",
+                                "properties": {
+                                  "amount": {
+                                    "type": "number"
+                                  },
+                                  "currency": {
+                                    "type": "object",
+                                    "description": "Referenced type: Currency (see source contracts for full definition)"
+                                  },
+                                  "precision": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "amount",
+                                  "currency",
+                                  "precision"
+                                ]
+                              },
+                              "currentBalance": {
+                                "type": "object",
+                                "properties": {
+                                  "amount": {
+                                    "type": "number"
+                                  },
+                                  "currency": {
+                                    "type": "object",
+                                    "description": "Referenced type: Currency (see source contracts for full definition)"
+                                  },
+                                  "precision": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "amount",
+                                  "currency",
+                                  "precision"
+                                ]
+                              },
+                              "timestamp": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "clientId",
+                              "accountId",
+                              "accountType",
+                              "availableBalance",
+                              "currentBalance",
+                              "timestamp"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "ledgerAccountBalances",
+                        "clientAccountBalances"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categorised-transactions/{clientId}": {
+      "get": {
+        "operationId": "getCategorisedTransactions",
+        "summary": "Get Categorised Transactions",
+        "tags": [
+          "Categorised Transactions"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "date": {
+                                "type": "string"
+                              },
+                              "contact": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "slug": {
+                                    "type": "string"
+                                  },
+                                  "displayName": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "slug",
+                                  "displayName"
+                                ]
+                              },
+                              "contactReasoning": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "account": {
+                                "type": "string"
+                              },
+                              "accountReasoning": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "taxRateId": {
+                                "type": "string"
+                              },
+                              "taxRateReasoning": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "amount": {
+                                "type": "object",
+                                "description": "Referenced type: MonetaryAmountDto (see source contracts for full definition)"
+                              },
+                              "categorisationMethod": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "transaction"
+                                ]
+                              },
+                              "categorisationStatus": {
+                                "type": "string",
+                                "enum": [
+                                  "CategorisedTransaction"
+                                ]
+                              },
+                              "bankAccountId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "clientId",
+                              "id",
+                              "date",
+                              "contact",
+                              "contactReasoning",
+                              "description",
+                              "account",
+                              "accountReasoning",
+                              "taxRateId",
+                              "taxRateReasoning",
+                              "amount",
+                              "categorisationMethod",
+                              "type",
+                              "categorisationStatus",
+                              "bankAccountId"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "date": {
+                                "type": "string"
+                              },
+                              "contact": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "slug": {
+                                    "type": "string"
+                                  },
+                                  "displayName": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "slug",
+                                  "displayName"
+                                ],
+                                "nullable": true
+                              },
+                              "contactReasoning": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "account": {
+                                "type": "string"
+                              },
+                              "accountReasoning": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "taxRateId": {
+                                "type": "string"
+                              },
+                              "taxRateReasoning": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "amount": {
+                                "type": "object",
+                                "description": "Referenced type: MonetaryAmountDto (see source contracts for full definition)"
+                              },
+                              "categorisationMethod": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "transaction"
+                                ]
+                              },
+                              "categorisationStatus": {
+                                "type": "string",
+                                "enum": [
+                                  "SuspenseTransaction"
+                                ]
+                              },
+                              "bankAccountId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "clientId",
+                              "id",
+                              "date",
+                              "contact",
+                              "contactReasoning",
+                              "description",
+                              "account",
+                              "accountReasoning",
+                              "taxRateId",
+                              "taxRateReasoning",
+                              "amount",
+                              "categorisationMethod",
+                              "type",
+                              "categorisationStatus",
+                              "bankAccountId"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/{clientId}/bank-accounts": {
+      "get": {
+        "operationId": "getClientBankAccounts",
+        "summary": "Get Client Bank Accounts",
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "institution": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          },
+                          "account": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "mask": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "mask"
+                            ]
+                          },
+                          "itemId": {
+                            "type": "string"
+                          },
+                          "lastSyncTime": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "linkedExternalAccount": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "institution",
+                          "account",
+                          "itemId",
+                          "lastSyncTime",
+                          "linkedExternalAccount"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/{clientId}/contact-matches": {
+      "get": {
+        "operationId": "getContactMatches",
+        "summary": "Get Contact Matches",
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "novabookContact": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "xeroContact": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "novabookContact",
+                        "xeroContact"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "get": {
+        "operationId": "getContacts",
+        "summary": "Get Contacts",
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "contacts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "displayName": {
+                                "type": "string"
+                              },
+                              "slug": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "displayName",
+                              "slug"
+                            ]
+                          }
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        },
+                        "page": {
+                          "type": "number"
+                        },
+                        "pageSize": {
+                          "type": "number"
+                        },
+                        "totalPages": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "contacts",
+                        "totalCount",
+                        "page",
+                        "pageSize",
+                        "totalPages"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invoices/{clientId}/{invoiceId}/document": {
+      "get": {
+        "operationId": "getInvoiceDocument",
+        "summary": "Get Invoice Document",
+        "tags": [
+          "Invoices"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "documentUrl": {
+                          "type": "string"
+                        },
+                        "fileSizeBytes": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "documentUrl",
+                        "fileSizeBytes"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invoices/{clientId}": {
+      "get": {
+        "operationId": "getInvoices",
+        "summary": "Get Invoices",
+        "tags": [
+          "Invoices"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "clientId": {
+                            "type": "string"
+                          },
+                          "personId": {
+                            "type": "string"
+                          },
+                          "invoiceId": {
+                            "type": "string"
+                          },
+                          "payloadSourceMethod": {
+                            "type": "string",
+                            "enum": [
+                              "email",
+                              "upload",
+                              "text",
+                              "gmail-scanner",
+                              "web-upload",
+                              "app-upload",
+                              "conversation"
+                            ]
+                          },
+                          "attachmentS3Key": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": [
+                              "IN_REVIEW",
+                              "REVIEWED",
+                              "ARCHIVED",
+                              "PUBLISHED"
+                            ]
+                          },
+                          "supplierName": {
+                            "type": "string"
+                          },
+                          "supplierAddress": {
+                            "type": "string"
+                          },
+                          "contactId": {
+                            "type": "number"
+                          },
+                          "contactName": {
+                            "type": "string"
+                          },
+                          "billingAddress": {
+                            "type": "string"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "dateRaised": {
+                            "type": "string"
+                          },
+                          "dateDue": {
+                            "type": "string"
+                          },
+                          "documentInvoiceId": {
+                            "type": "string"
+                          },
+                          "subtotal": {
+                            "type": "number"
+                          },
+                          "totalAmount": {
+                            "type": "number"
+                          },
+                          "totalTax": {
+                            "type": "number"
+                          },
+                          "xeroContact": {
+                            "type": "string"
+                          },
+                          "xeroContactId": {
+                            "type": "string"
+                          },
+                          "isContactSuggested": {
+                            "type": "boolean",
+                            "enum": [
+                              false,
+                              true
+                            ]
+                          },
+                          "ingestionDate": {
+                            "type": "string"
+                          },
+                          "lineItems": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "description": {
+                                  "type": "string"
+                                },
+                                "quantity": {
+                                  "type": "number"
+                                },
+                                "unitPrice": {
+                                  "type": "number"
+                                },
+                                "taxAmount": {
+                                  "type": "number"
+                                },
+                                "taxRate": {
+                                  "type": "string",
+                                  "enum": [
+                                    "STANDARD",
+                                    "REDUCED",
+                                    "ZERO",
+                                    "EXEMPT",
+                                    "NO_VAT",
+                                    "REVERSE_CHARGE"
+                                  ]
+                                },
+                                "taxRateAsDecimal": {
+                                  "type": "number"
+                                },
+                                "amount": {
+                                  "type": "number"
+                                },
+                                "xeroAccountCode": {
+                                  "type": "string"
+                                },
+                                "xeroAccountName": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/xero-last-sync-time/{clientId}": {
+      "get": {
+        "operationId": "getLastXeroSyncTime",
+        "summary": "Get Last Xero Sync Time",
+        "tags": [
+          "Xero Last Sync Time"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "lastSyncedAt": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "lastSyncedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/persisted-xero-contact-summaries/{clientId}": {
+      "get": {
+        "operationId": "getPersistedXeroContactSummaries",
+        "summary": "Get Persisted Xero Contact Summaries",
+        "tags": [
+          "Persisted Xero Contact Summaries"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bankAccountName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minAmount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "hasInconsistentAccounts",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hasInconsistentTax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "contactId": {
+                                "type": "string"
+                              },
+                              "contactName": {
+                                "type": "string"
+                              },
+                              "transactionCount": {
+                                "type": "number"
+                              },
+                              "totalAmount": {
+                                "type": "object",
+                                "properties": {
+                                  "amount": {
+                                    "type": "number"
+                                  },
+                                  "currency": {
+                                    "type": "string"
+                                  },
+                                  "precision": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "amount",
+                                  "currency",
+                                  "precision"
+                                ]
+                              },
+                              "taxCodeSummary": {
+                                "type": "object",
+                                "properties": {}
+                              },
+                              "accountCodeSummary": {
+                                "type": "object",
+                                "properties": {}
+                              }
+                            },
+                            "required": [
+                              "contactId",
+                              "contactName",
+                              "transactionCount",
+                              "totalAmount",
+                              "taxCodeSummary",
+                              "accountCodeSummary"
+                            ]
+                          }
+                        },
+                        "totalItems": {
+                          "type": "number"
+                        },
+                        "pageSize": {
+                          "type": "number"
+                        },
+                        "currentPage": {
+                          "type": "number"
+                        },
+                        "totalPages": {
+                          "type": "number"
+                        },
+                        "hasNextPage": {
+                          "type": "boolean"
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "totalItems",
+                        "pageSize",
+                        "currentPage",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/persisted-xero-transactions/{clientId}": {
+      "get": {
+        "operationId": "getPersistedXeroTransactions",
+        "summary": "Get Persisted Xero Transactions",
+        "tags": [
+          "Persisted Xero Transactions"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bankAccountName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minAmount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "hasInconsistentAccounts",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hasInconsistentTax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "editedStartDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "editedEndDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "last-edited",
+                "xero-contact",
+                "total-amount",
+                "transaction-date"
+              ]
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "bankTransactionId": {
+                                "type": "string"
+                              },
+                              "bankAccount": {
+                                "type": "object",
+                                "properties": {
+                                  "accountId": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "accountId",
+                                  "name"
+                                ]
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "RECEIVE",
+                                  "RECEIVE-OVERPAYMENT",
+                                  "RECEIVE-PREPAYMENT",
+                                  "SPEND",
+                                  "SPEND-OVERPAYMENT",
+                                  "SPEND-PREPAYMENT",
+                                  "RECEIVE-TRANSFER",
+                                  "SPEND-TRANSFER"
+                                ]
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "AUTHORISED",
+                                  "DELETED"
+                                ]
+                              },
+                              "transactionDate": {
+                                "type": "string"
+                              },
+                              "reference": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "contact": {
+                                "type": "object",
+                                "properties": {
+                                  "contactId": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "contactId",
+                                  "name"
+                                ]
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "currencyPrecision": {
+                                "type": "number"
+                              },
+                              "subTotal": {
+                                "type": "object",
+                                "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                              },
+                              "totalTax": {
+                                "type": "object",
+                                "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                              },
+                              "total": {
+                                "type": "object",
+                                "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                              },
+                              "lineAmountTypes": {
+                                "type": "string",
+                                "enum": [
+                                  "Exclusive",
+                                  "Inclusive",
+                                  "NoTax"
+                                ]
+                              },
+                              "isReconciled": {
+                                "type": "boolean"
+                              },
+                              "hasAttachments": {
+                                "type": "boolean"
+                              },
+                              "xeroUpdatedAt": {
+                                "type": "string"
+                              },
+                              "syncedAt": {
+                                "type": "string"
+                              },
+                              "lineItems": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "transactionId": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "quantity": {
+                                      "type": "number"
+                                    },
+                                    "unitAmount": {
+                                      "type": "object",
+                                      "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                                    },
+                                    "lineAmount": {
+                                      "type": "object",
+                                      "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                                    },
+                                    "taxAmount": {
+                                      "type": "object",
+                                      "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                                    },
+                                    "accountCode": {
+                                      "type": "string"
+                                    },
+                                    "taxType": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "itemCode": {
+                                      "type": "string",
+                                      "nullable": true
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "transactionId",
+                                    "quantity",
+                                    "unitAmount",
+                                    "lineAmount",
+                                    "taxAmount",
+                                    "accountCode",
+                                    "taxType"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "clientId",
+                              "bankTransactionId",
+                              "bankAccount",
+                              "type",
+                              "status",
+                              "transactionDate",
+                              "reference",
+                              "contact",
+                              "currencyCode",
+                              "currencyPrecision",
+                              "subTotal",
+                              "totalTax",
+                              "total",
+                              "lineAmountTypes",
+                              "isReconciled",
+                              "hasAttachments",
+                              "xeroUpdatedAt",
+                              "syncedAt",
+                              "lineItems"
+                            ]
+                          }
+                        },
+                        "totalItems": {
+                          "type": "number"
+                        },
+                        "pageSize": {
+                          "type": "number"
+                        },
+                        "currentPage": {
+                          "type": "number"
+                        },
+                        "totalPages": {
+                          "type": "number"
+                        },
+                        "hasNextPage": {
+                          "type": "boolean"
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "totalItems",
+                        "pageSize",
+                        "currentPage",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/bookkeeping/transactions": {
+      "get": {
+        "operationId": "getSuspenseTransactions",
+        "summary": "Get Suspense Transactions",
+        "tags": [
+          "Clients"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "suspenseAccount": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "displayName": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "displayName"
+                          ]
+                        },
+                        "transactions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "bankTransactionId": {
+                                "type": "string"
+                              },
+                              "bankAccount": {
+                                "type": "object",
+                                "properties": {
+                                  "accountId": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "accountId",
+                                  "name"
+                                ]
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "RECEIVE",
+                                  "RECEIVE-OVERPAYMENT",
+                                  "RECEIVE-PREPAYMENT",
+                                  "SPEND",
+                                  "SPEND-OVERPAYMENT",
+                                  "SPEND-PREPAYMENT",
+                                  "RECEIVE-TRANSFER",
+                                  "SPEND-TRANSFER"
+                                ]
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "AUTHORISED",
+                                  "DELETED"
+                                ]
+                              },
+                              "transactionDate": {
+                                "type": "string"
+                              },
+                              "reference": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "contact": {
+                                "type": "object",
+                                "properties": {
+                                  "contactId": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "contactId",
+                                  "name"
+                                ]
+                              },
+                              "subTotal": {
+                                "type": "object",
+                                "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                              },
+                              "totalTax": {
+                                "type": "object",
+                                "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                              },
+                              "total": {
+                                "type": "object",
+                                "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                              },
+                              "lineAmountTypes": {
+                                "type": "string",
+                                "enum": [
+                                  "Exclusive",
+                                  "Inclusive",
+                                  "NoTax"
+                                ]
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "currencyPrecision": {
+                                "type": "number"
+                              },
+                              "isReconciled": {
+                                "type": "boolean"
+                              },
+                              "hasAttachments": {
+                                "type": "boolean"
+                              },
+                              "xeroUpdatedAt": {
+                                "type": "string"
+                              },
+                              "syncedAt": {
+                                "type": "string"
+                              },
+                              "lineItems": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "transactionId": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "quantity": {
+                                      "type": "number"
+                                    },
+                                    "unitAmount": {
+                                      "type": "object",
+                                      "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                                    },
+                                    "lineAmount": {
+                                      "type": "object",
+                                      "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                                    },
+                                    "taxAmount": {
+                                      "type": "object",
+                                      "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                                    },
+                                    "accountCode": {
+                                      "type": "string"
+                                    },
+                                    "taxType": {
+                                      "type": "string",
+                                      "nullable": true
+                                    },
+                                    "itemCode": {
+                                      "type": "string",
+                                      "nullable": true
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "transactionId",
+                                    "quantity",
+                                    "unitAmount",
+                                    "lineAmount",
+                                    "taxAmount",
+                                    "accountCode",
+                                    "taxType"
+                                  ]
+                                }
+                              },
+                              "conversation": {
+                                "type": "object",
+                                "properties": {
+                                  "conversationId": {
+                                    "type": "string"
+                                  },
+                                  "status": {
+                                    "type": "string",
+                                    "enum": [
+                                      "awaiting_client",
+                                      "awaiting_ops",
+                                      "closed"
+                                    ]
+                                  },
+                                  "updatedAt": {
+                                    "type": "string"
+                                  },
+                                  "lastMessageSentAt": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "conversationId",
+                                  "status",
+                                  "updatedAt",
+                                  "lastMessageSentAt"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "clientId",
+                              "bankTransactionId",
+                              "bankAccount",
+                              "type",
+                              "status",
+                              "transactionDate",
+                              "reference",
+                              "contact",
+                              "subTotal",
+                              "totalTax",
+                              "total",
+                              "lineAmountTypes",
+                              "currencyCode",
+                              "currencyPrecision",
+                              "isReconciled",
+                              "hasAttachments",
+                              "xeroUpdatedAt",
+                              "syncedAt",
+                              "lineItems"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "suspenseAccount",
+                        "transactions"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/suspense-counts": {
+      "get": {
+        "operationId": "getSuspenseCounts",
+        "summary": "Get Suspense Counts",
+        "tags": [
+          "Suspense Counts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "clientId": {
+                            "type": "string"
+                          },
+                          "transactionCount": {
+                            "type": "number"
+                          },
+                          "earliestTransactionDate": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "clientId",
+                          "transactionCount",
+                          "earliestTransactionDate"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/uncategorised-transactions/{clientId}/{transactionId}": {
+      "get": {
+        "operationId": "getUncategorisedTransaction",
+        "summary": "Get Uncategorised Transaction",
+        "tags": [
+          "Uncategorised Transactions"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "accountId": {
+                          "type": "string"
+                        },
+                        "accountOwner": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "amount": {
+                          "type": "number"
+                        },
+                        "isoCurrencyCode": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "unofficialCurrencyCode": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "checkNumber": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "date": {
+                          "type": "string"
+                        },
+                        "location": {
+                          "type": "object",
+                          "properties": {
+                            "address": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "city": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "region": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "postalCode": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "country": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "lat": {
+                              "type": "number",
+                              "nullable": true
+                            },
+                            "lon": {
+                              "type": "number",
+                              "nullable": true
+                            },
+                            "storeNumber": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "address",
+                            "city",
+                            "region",
+                            "postalCode",
+                            "country",
+                            "lat",
+                            "lon",
+                            "storeNumber"
+                          ]
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "merchantName": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "originalDescription": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "paymentMeta": {
+                          "type": "object",
+                          "properties": {
+                            "referenceNumber": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "ppdId": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "payee": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "byOrderOf": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "payer": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "paymentMethod": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "paymentProcessor": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "reason": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "referenceNumber",
+                            "ppdId",
+                            "payee",
+                            "byOrderOf",
+                            "payer",
+                            "paymentMethod",
+                            "paymentProcessor",
+                            "reason"
+                          ]
+                        },
+                        "pending": {
+                          "type": "boolean"
+                        },
+                        "pendingTransactionId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "transactionId": {
+                          "type": "string"
+                        },
+                        "logoUrl": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "website": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "authorizedDate": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "authorizedDateTime": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "dateTime": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "paymentChannel": {
+                          "type": "string",
+                          "enum": [
+                            "online",
+                            "in_store",
+                            "other"
+                          ]
+                        },
+                        "personalFinanceCategory": {
+                          "type": "object",
+                          "properties": {
+                            "primary": {
+                              "type": "string",
+                              "enum": [
+                                "INCOME",
+                                "TRANSFER_IN",
+                                "TRANSFER_OUT",
+                                "LOAN_PAYMENTS",
+                                "BANK_FEES",
+                                "ENTERTAINMENT",
+                                "FOOD_AND_DRINK",
+                                "GENERAL_MERCHANDISE",
+                                "HOME_IMPROVEMENT",
+                                "MEDICAL",
+                                "PERSONAL_CARE",
+                                "GENERAL_SERVICES",
+                                "GOVERNMENT_AND_NON_PROFIT",
+                                "TRANSPORTATION",
+                                "TRAVEL",
+                                "RENT_AND_UTILITIES"
+                              ],
+                              "nullable": true
+                            },
+                            "detailed": {
+                              "type": "string"
+                            },
+                            "confidenceLevel": {
+                              "type": "string",
+                              "enum": [
+                                "VERY_HIGH",
+                                "HIGH",
+                                "MEDIUM",
+                                "LOW",
+                                "UNKNOWN"
+                              ],
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "primary",
+                            "detailed",
+                            "confidenceLevel"
+                          ],
+                          "nullable": true
+                        },
+                        "transactionCode": {
+                          "type": "string",
+                          "enum": [
+                            "adjustment",
+                            "atm",
+                            "bank charge",
+                            "bill payment",
+                            "cash",
+                            "cashback",
+                            "cheque",
+                            "direct debit",
+                            "interest",
+                            "purchase",
+                            "standing order",
+                            "transfer",
+                            "null"
+                          ],
+                          "nullable": true
+                        },
+                        "personalFinanceCategoryIconUrl": {
+                          "type": "string"
+                        },
+                        "counterparties": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "entityId": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "merchant",
+                                  "financial_institution",
+                                  "payment_app",
+                                  "marketplace",
+                                  "payment_terminal",
+                                  "income_source"
+                                ]
+                              },
+                              "website": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "logoUrl": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "confidenceLevel": {
+                                "type": "string",
+                                "enum": [
+                                  "VERY_HIGH",
+                                  "HIGH",
+                                  "MEDIUM",
+                                  "LOW",
+                                  "UNKNOWN"
+                                ],
+                                "nullable": true
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "entityId",
+                              "type",
+                              "website",
+                              "logoUrl",
+                              "confidenceLevel"
+                            ]
+                          }
+                        },
+                        "merchantEntityId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "shouldPublish": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "clientId",
+                        "accountId",
+                        "accountOwner",
+                        "amount",
+                        "isoCurrencyCode",
+                        "unofficialCurrencyCode",
+                        "checkNumber",
+                        "date",
+                        "location",
+                        "name",
+                        "merchantName",
+                        "originalDescription",
+                        "paymentMeta",
+                        "pending",
+                        "pendingTransactionId",
+                        "transactionId",
+                        "logoUrl",
+                        "website",
+                        "authorizedDate",
+                        "authorizedDateTime",
+                        "dateTime",
+                        "paymentChannel",
+                        "personalFinanceCategory",
+                        "transactionCode",
+                        "personalFinanceCategoryIconUrl",
+                        "counterparties",
+                        "merchantEntityId",
+                        "shouldPublish"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank-accounts/{accountId}/linked-account": {
+      "post": {
+        "operationId": "linkBankAccount",
+        "summary": "Link Bank Account",
+        "tags": [
+          "Bank Accounts"
+        ],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "linkedExternalAccount": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "linkedExternalAccount"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invoice-processing-status/client/{clientId}": {
+      "get": {
+        "operationId": "listInvoiceProcessingStatus",
+        "summary": "List Invoice Processing Status",
+        "tags": [
+          "Invoice Processing Status"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "processing",
+                "completed",
+                "failed"
+              ]
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "conversation",
+                "email",
+                "upload"
+              ]
+            }
+          },
+          {
+            "name": "step",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "email-preprocessor",
+                "upload-handler",
+                "email-processor",
+                "attachment-classifier",
+                "invoice-ingress"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "processingInvoiceId": {
+                                "type": "string"
+                              },
+                              "source": {
+                                "type": "string",
+                                "enum": [
+                                  "conversation",
+                                  "email",
+                                  "upload"
+                                ]
+                              },
+                              "startedAt": {
+                                "type": "string"
+                              },
+                              "currentStep": {
+                                "type": "string",
+                                "enum": [
+                                  "email-preprocessor",
+                                  "upload-handler",
+                                  "email-processor",
+                                  "attachment-classifier",
+                                  "invoice-ingress"
+                                ]
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "processing",
+                                  "completed",
+                                  "failed"
+                                ]
+                              },
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "errors": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "required": [
+                              "processingInvoiceId",
+                              "source",
+                              "startedAt",
+                              "currentStep",
+                              "status"
+                            ]
+                          }
+                        },
+                        "hasNextPage": {
+                          "type": "boolean"
+                        },
+                        "nextCursor": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "hasNextPage",
+                        "nextCursor"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/xero/{clientId}/recoding": {
+      "post": {
+        "operationId": "recodeXeroLineItems",
+        "summary": "Recode Xero Line Items",
+        "tags": [
+          "Xero"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "success": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ]
+                        }
+                      },
+                      "required": [
+                        "success"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "invoiceLineItemIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "invoiceId": {
+                          "type": "string"
+                        },
+                        "lineItemId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "invoiceId",
+                        "lineItemId"
+                      ]
+                    }
+                  },
+                  "taxCode": {
+                    "type": "string",
+                    "enum": [
+                      "None",
+                      "VatOnExpenses20",
+                      "VatOnExpenses5",
+                      "VatZeroRated",
+                      "VatExempt",
+                      "ReverseCharge"
+                    ]
+                  },
+                  "accountId": {
+                    "type": "string"
+                  },
+                  "cookies": {
+                    "type": "string"
+                  },
+                  "closeConversationId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "invoiceLineItemIds"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resync/diff/{clientId}": {
+      "post": {
+        "operationId": "resyncModifiedTransactions",
+        "summary": "Resync Modified Transactions",
+        "tags": [
+          "Resync"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "modifiedSince": {
+                    "type": "string"
                   }
                 }
               }
             }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
           }
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/persisted-xero-transactions/resync/{clientId}": {
+      "post": {
+        "operationId": "resyncXeroTransactions",
+        "summary": "Resync Xero Transactions",
+        "tags": [
+          "Persisted Xero Transactions"
+        ],
         "parameters": [
           {
-            "name": "id",
+            "name": "clientId",
             "in": "path",
-            "description": "ID of plant to delete",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
                 }
               }
             }
           }
         }
       }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+    },
+    "/categorised-transactions/{clientId}/{transactionId}": {
+      "patch": {
+        "operationId": "updateCategorisedTransaction",
+        "summary": "Update Categorised Transaction",
+        "tags": [
+          "Categorised Transactions"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "success": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ]
+                        }
+                      },
+                      "required": [
+                        "success"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
               }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
           }
         }
       }
     }
   },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
+  "tags": [
+    {
+      "name": "Alias"
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+    {
+      "name": "Balances"
+    },
+    {
+      "name": "Bank Accounts"
+    },
+    {
+      "name": "Categorised Transactions"
+    },
+    {
+      "name": "Client"
+    },
+    {
+      "name": "Clients"
+    },
+    {
+      "name": "Contacts"
+    },
+    {
+      "name": "Invoice Processing Status"
+    },
+    {
+      "name": "Invoices"
+    },
+    {
+      "name": "Persisted Xero Contact Summaries"
+    },
+    {
+      "name": "Persisted Xero Transactions"
+    },
+    {
+      "name": "Person"
+    },
+    {
+      "name": "Resync"
+    },
+    {
+      "name": "Suspense Counts"
+    },
+    {
+      "name": "Uncategorised Transactions"
+    },
+    {
+      "name": "Xero"
+    },
+    {
+      "name": "Xero Last Sync Time"
     }
-  }
+  ]
 }
