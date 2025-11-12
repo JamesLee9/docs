@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://payments.dev.api.novabook.com",
+      "url": "https://payments.dev.novabook.com",
       "description": "Development"
     }
   ],

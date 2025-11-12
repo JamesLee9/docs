@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://payrolls.dev.api.novabook.com",
+      "url": "https://payrolls.dev.novabook.com",
       "description": "Development"
     }
   ],

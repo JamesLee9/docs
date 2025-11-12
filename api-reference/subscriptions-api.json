@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://subscriptions.dev.api.novabook.com",
+      "url": "https://subscriptions.dev.novabook.com",
       "description": "Development"
     }
   ],

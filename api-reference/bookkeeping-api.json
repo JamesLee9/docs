@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://bookkeeping.dev.api.novabook.com",
+      "url": "https://bookkeeping.dev.novabook.com",
       "description": "Development"
     }
   ],

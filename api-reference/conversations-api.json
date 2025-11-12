@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://conversations.dev.api.novabook.com",
+      "url": "https://conversations.dev.novabook.com",
       "description": "Development"
     }
   ],

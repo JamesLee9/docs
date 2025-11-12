@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://vat.dev.api.novabook.com",
+      "url": "https://vat.dev.novabook.com",
       "description": "Development"
     }
   ],
