@@ -4,8 +4,8 @@
   "name": "Novabook Docs",
   "colors": {
     "primary": "#13EA79",
-    "light": "#E5E5E5",
-    "dark": "#003901"
+    "light": "#003901",
+    "dark": "#021C0E"
   },
   "favicon": "/favicon.svg",
   "navigation": {
