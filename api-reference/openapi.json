@@ -3050,7 +3050,22 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": {}
+                "properties": {
+                  "account": {
+                    "type": "string"
+                  },
+                  "taxRateId": {
+                    "type": "string",
+                    "enum": [
+                      "STANDARD",
+                      "REDUCED",
+                      "ZERO",
+                      "EXEMPT",
+                      "NO_VAT",
+                      "REVERSE_CHARGE"
+                    ]
+                  }
+                }
               }
             }
           }
