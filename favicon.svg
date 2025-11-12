@@ -1,19 +1,23 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.06145 23.1079C5.26816 22.3769 -3.39077 20.6274 1.4173 5.06384C9.6344 6.09939 16.9728 14.0644 9.06145 23.1079Z" fill="url(#paint0_linear_17557_2021)"/>
-<path d="M8.91928 23.0939C5.27642 21.2223 0.78371 4.20891 17.0071 0C20.7569 7.19341 19.6212 16.5452 8.91928 23.0939Z" fill="url(#paint1_linear_17557_2021)"/>
-<path d="M8.91388 23.0788C8.73534 19.8817 10.1585 9.08525 23.5699 13.1107C23.1812 20.1229 18.984 26.4182 8.91388 23.0788Z" fill="url(#paint2_linear_17557_2021)"/>
+<svg width="133" height="128" viewBox="0 0 133 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_dd_44_2023)">
+<path d="M83.8545 40.6032L74.2673 77.2925C73.8698 78.7791 72.5174 79.817 70.9775 79.817C69.3017 79.817 66.9784 78.1776 67.6888 75.5298L73.2189 54.5905C74.1583 51.083 73.4289 47.4188 71.2179 44.5367C69.007 41.6551 65.6567 40.0026 62.0237 40.0026C62.0233 40.0026 52.7377 39.6073 50.3296 48.5918L40 87.3994H48.4719L58.2348 50.7096C58.9862 47.9008 62.0234 48.1856 62.0237 48.1856C64.7991 48.1856 65.7421 50.8748 65.3135 52.4727L59.7834 73.4121C58.8438 76.9196 59.5733 80.5838 61.7842 83.4659C63.9943 86.3475 67.3454 88 70.9786 88C76.215 88 80.8182 84.4679 82.1727 79.4103L92.3264 40.6032H83.8545Z" fill="#00ED6A"/>
+</g>
 <defs>
-<linearGradient id="paint0_linear_17557_2021" x1="3.77557" y1="5.91571" x2="5.23185" y2="21.5589" gradientUnits="userSpaceOnUse">
-<stop stop-color="#18E299"/>
-<stop offset="1" stop-color="#15803D"/>
-</linearGradient>
-<linearGradient id="paint1_linear_17557_2021" x1="12.1711" y1="-0.718425" x2="10.1897" y2="22.9832" gradientUnits="userSpaceOnUse">
-<stop stop-color="#16A34A"/>
-<stop offset="1" stop-color="#4ADE80"/>
-</linearGradient>
-<linearGradient id="paint2_linear_17557_2021" x1="23.1327" y1="15.353" x2="9.33841" y2="18.5196" gradientUnits="userSpaceOnUse">
-<stop stop-color="#4ADE80"/>
-<stop offset="1" stop-color="#0D9373"/>
-</linearGradient>
+<filter id="filter0_dd_44_2023" x="0" y="0" width="132.326" height="128" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="20"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_44_2023"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="12"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0.929412 0 0 0 0 0.415686 0 0 0 0.5 0"/>
+<feBlend mode="normal" in2="effect1_dropShadow_44_2023" result="effect2_dropShadow_44_2023"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_44_2023" result="shape"/>
+</filter>
 </defs>
 </svg>
