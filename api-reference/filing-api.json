@@ -1,0 +1,2075 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Filing Api",
+    "description": "API contracts for filing domain",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://filing.dev.api.novabook.com",
+      "description": "Development"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Clerk JWT authentication token. Obtain via Clerk authentication."
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/clients/{clientId}/confirmation-statements/{madeUpToDate}/conversation": {
+      "post": {
+        "operationId": "createConfirmationStatementConversation",
+        "summary": "Create Confirmation Statement Conversation",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "madeUpToDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        201
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error: CONFLICT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "CONFLICT"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "initialMessage": {
+                    "type": "object",
+                    "properties": {
+                      "body": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "body"
+                    ]
+                  },
+                  "skipStatusUpdate": {
+                    "type": "boolean",
+                    "enum": [
+                      false,
+                      true
+                    ]
+                  }
+                },
+                "required": [
+                  "initialMessage"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/confirmation-statements/{madeUpToDate}/conversation/messages/{messageId}": {
+      "delete": {
+        "operationId": "deleteConfirmationStatementMessage",
+        "summary": "Delete Confirmation Statement Message",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "madeUpToDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "messageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "conversationDeleted": {
+                          "type": "boolean"
+                        },
+                        "conversationId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "conversationDeleted"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/confirmation-statements": {
+      "get": {
+        "operationId": "getClientConfirmationStatements",
+        "summary": "Get Client Confirmation Statements",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "madeUpToDate": {
+                                "type": "string"
+                              },
+                              "status": {},
+                              "workflowStatus": {},
+                              "dueDate": {
+                                "type": "string"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              },
+                              "completedAt": {
+                                "type": "string"
+                              },
+                              "completedBy": {
+                                "type": "string"
+                              },
+                              "notes": {
+                                "type": "string"
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "properties": {
+                                  "allDirectorsPresent": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  },
+                                  "allPoscsPresent": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  },
+                                  "shareholdingChangesSinceLastCS": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  },
+                                  "capTableFileId": {
+                                    "type": "string"
+                                  },
+                                  "submittedBy": {
+                                    "type": "string"
+                                  },
+                                  "submittedAt": {
+                                    "type": "string"
+                                  },
+                                  "notes": {
+                                    "type": "string"
+                                  },
+                                  "draftConfirmationStatementFiles": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "fileId": {
+                                          "type": "string"
+                                        },
+                                        "uploadedAt": {
+                                          "type": "string"
+                                        },
+                                        "uploadedBy": {
+                                          "type": "string"
+                                        },
+                                        "filename": {
+                                          "type": "string"
+                                        },
+                                        "fileExtension": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "fileId",
+                                        "uploadedAt",
+                                        "uploadedBy",
+                                        "filename",
+                                        "fileExtension"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "conversationId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "clientId",
+                              "madeUpToDate",
+                              "status",
+                              "workflowStatus",
+                              "createdAt",
+                              "updatedAt"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "items"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "VALIDATION_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/confirmation-statement/{madeUpToDate}": {
+      "get": {
+        "operationId": "getConfirmationStatement",
+        "summary": "Get Confirmation Statement",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "madeUpToDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeCompanyPersons",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          },
+          {
+            "name": "resolveUserName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "confirmationStatement": {
+                          "type": "object",
+                          "properties": {
+                            "clientId": {
+                              "type": "string"
+                            },
+                            "madeUpToDate": {
+                              "type": "string"
+                            },
+                            "status": {},
+                            "workflowStatus": {},
+                            "dueDate": {
+                              "type": "string"
+                            },
+                            "createdAt": {
+                              "type": "string"
+                            },
+                            "updatedAt": {
+                              "type": "string"
+                            },
+                            "completedAt": {
+                              "type": "string"
+                            },
+                            "completedBy": {
+                              "type": "string"
+                            },
+                            "notes": {
+                              "type": "string"
+                            },
+                            "metadata": {
+                              "type": "object",
+                              "properties": {
+                                "allDirectorsPresent": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "allPoscsPresent": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "shareholdingChangesSinceLastCS": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "capTableFileId": {
+                                  "type": "string"
+                                },
+                                "submittedBy": {
+                                  "type": "string"
+                                },
+                                "submittedAt": {
+                                  "type": "string"
+                                },
+                                "notes": {
+                                  "type": "string"
+                                },
+                                "draftConfirmationStatementFiles": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fileId": {
+                                        "type": "string"
+                                      },
+                                      "uploadedAt": {
+                                        "type": "string"
+                                      },
+                                      "uploadedBy": {
+                                        "type": "string"
+                                      },
+                                      "filename": {
+                                        "type": "string"
+                                      },
+                                      "fileExtension": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "fileId",
+                                      "uploadedAt",
+                                      "uploadedBy",
+                                      "filename",
+                                      "fileExtension"
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "conversationId": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "clientId",
+                            "madeUpToDate",
+                            "status",
+                            "workflowStatus",
+                            "createdAt",
+                            "updatedAt"
+                          ]
+                        },
+                        "isFirstConfirmationStatement": {
+                          "type": "boolean"
+                        },
+                        "previousMadeUpToDate": {
+                          "type": "string"
+                        },
+                        "companyPersons": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "role": {
+                                "type": "string",
+                                "enum": [
+                                  "director",
+                                  "POSC"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "role"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "confirmationStatement",
+                        "isFirstConfirmationStatement",
+                        "previousMadeUpToDate"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/confirmation-statements": {
+      "get": {
+        "operationId": "getConfirmationStatements",
+        "summary": "Get Confirmation Statements",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {}
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "madeUpToDate": {
+                                "type": "string"
+                              },
+                              "status": {},
+                              "workflowStatus": {},
+                              "dueDate": {
+                                "type": "string"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              },
+                              "completedAt": {
+                                "type": "string"
+                              },
+                              "completedBy": {
+                                "type": "string"
+                              },
+                              "notes": {
+                                "type": "string"
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "properties": {
+                                  "allDirectorsPresent": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  },
+                                  "allPoscsPresent": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  },
+                                  "shareholdingChangesSinceLastCS": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  },
+                                  "capTableFileId": {
+                                    "type": "string"
+                                  },
+                                  "submittedBy": {
+                                    "type": "string"
+                                  },
+                                  "submittedAt": {
+                                    "type": "string"
+                                  },
+                                  "notes": {
+                                    "type": "string"
+                                  },
+                                  "draftConfirmationStatementFiles": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "fileId": {
+                                          "type": "string"
+                                        },
+                                        "uploadedAt": {
+                                          "type": "string"
+                                        },
+                                        "uploadedBy": {
+                                          "type": "string"
+                                        },
+                                        "filename": {
+                                          "type": "string"
+                                        },
+                                        "fileExtension": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "fileId",
+                                        "uploadedAt",
+                                        "uploadedBy",
+                                        "filename",
+                                        "fileExtension"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "clientName": {
+                                "type": "string"
+                              },
+                              "clientPriority": {
+                                "type": "string"
+                              },
+                              "teamLabel": {
+                                "type": "string"
+                              },
+                              "companyAuthCode": {
+                                "type": "string"
+                              },
+                              "conversationId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "clientId",
+                              "madeUpToDate",
+                              "status",
+                              "workflowStatus",
+                              "createdAt",
+                              "updatedAt"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "items"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: VALIDATION_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "VALIDATION_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{clientId}/files/{fileId}/download-url": {
+      "get": {
+        "operationId": "getFileDownloadUrl",
+        "summary": "Get File Download Url",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "downloadUrl": {
+                          "type": "string"
+                        },
+                        "expiresIn": {
+                          "type": "number"
+                        },
+                        "fileId": {
+                          "type": "string"
+                        },
+                        "filename": {
+                          "type": "string"
+                        },
+                        "contentType": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "downloadUrl",
+                        "expiresIn",
+                        "fileId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/confirmation-statements/{madeUpToDate}/conversation/messages": {
+      "post": {
+        "operationId": "sendConfirmationStatementMessage",
+        "summary": "Send Confirmation Statement Message",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "madeUpToDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        201
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "messageId": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "index": {
+                          "type": "number"
+                        },
+                        "participantId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "author": {
+                          "type": "object",
+                          "properties": {
+                            "identity": {
+                              "type": "string"
+                            },
+                            "displayName": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string",
+                              "enum": [
+                                "ops",
+                                "client"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "identity",
+                            "displayName",
+                            "role"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "messageId",
+                        "createdAt",
+                        "index"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "skipStatusUpdate": {
+                    "type": "boolean",
+                    "enum": [
+                      false,
+                      true
+                    ]
+                  }
+                },
+                "required": [
+                  "message"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/confirmation-statement/{madeUpToDate}/submit": {
+      "post": {
+        "operationId": "submitConfirmationStatement",
+        "summary": "Submit Confirmation Statement",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "madeUpToDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "madeUpToDate": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "workflowStatus": {
+                          "type": "string"
+                        },
+                        "dueDate": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "completedAt": {
+                          "type": "string"
+                        },
+                        "completedBy": {
+                          "type": "string"
+                        },
+                        "notes": {
+                          "type": "string"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "properties": {
+                            "allDirectorsPresent": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "allPoscsPresent": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "shareholdingChangesSinceLastCS": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "capTableFileId": {
+                              "type": "string"
+                            },
+                            "submittedBy": {
+                              "type": "string"
+                            },
+                            "submittedAt": {
+                              "type": "string"
+                            },
+                            "notes": {
+                              "type": "string"
+                            },
+                            "draftConfirmationStatementFiles": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "fileId": {
+                                    "type": "string"
+                                  },
+                                  "uploadedAt": {
+                                    "type": "string"
+                                  },
+                                  "uploadedBy": {
+                                    "type": "string"
+                                  },
+                                  "filename": {
+                                    "type": "string"
+                                  },
+                                  "fileExtension": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "fileId",
+                                  "uploadedAt",
+                                  "uploadedBy",
+                                  "filename",
+                                  "fileExtension"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "conversationId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "clientId",
+                        "madeUpToDate",
+                        "status",
+                        "workflowStatus",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error: CONFLICT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "CONFLICT"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        }
+      }
+    },
+    "/confirmation-statements/{clientId}/status": {
+      "post": {
+        "operationId": "updateConfirmationStatementStatus",
+        "summary": "Update Confirmation Statement Status",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "ok": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "ok"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error: CONFLICT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "CONFLICT"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "madeUpToDate": {
+                    "type": "string"
+                  },
+                  "status": {}
+                },
+                "required": [
+                  "madeUpToDate",
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/confirmation-statement/{madeUpToDate}/draft-confirmation-statement": {
+      "post": {
+        "operationId": "uploadDraftConfirmationStatementFile",
+        "summary": "Upload Draft Confirmation Statement File",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "madeUpToDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "fileId": {
+                          "type": "string"
+                        },
+                        "filename": {
+                          "type": "string"
+                        },
+                        "updatedStatus": {
+                          "type": "object",
+                          "description": "Referenced type: WorkflowStatus (see source contracts for full definition)"
+                        }
+                      },
+                      "required": [
+                        "updatedStatus"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

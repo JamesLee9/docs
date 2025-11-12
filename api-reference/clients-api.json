@@ -1,0 +1,2778 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Clients Api",
+    "description": "API contracts for clients domain",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://clients.dev.api.novabook.com",
+      "description": "Development"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Clerk JWT authentication token. Obtain via Clerk authentication."
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/client/{clientId}/archive": {
+      "delete": {
+        "operationId": "archiveClient",
+        "summary": "Archive Client",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/{clientId}/kyc/person/{kycPersonId}/complete-identity-verification": {
+      "post": {
+        "operationId": "completeKycIdentityVerification",
+        "summary": "Complete Kyc Identity Verification",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "kycPersonId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "pending",
+                            "submitted"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "linkSessionId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "linkSessionId"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/client": {
+      "post": {
+        "operationId": "createClientV2",
+        "summary": "Create Client V2",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "client": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "sourceType": {
+                              "type": "string",
+                              "enum": [
+                                "Clerk"
+                              ]
+                            },
+                            "clerkId": {
+                              "type": "string"
+                            },
+                            "companyRegistrationNumber": {
+                              "type": "string"
+                            },
+                            "sicCodes": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "accountingDates": {
+                              "type": "object",
+                              "properties": {
+                                "nextAccount": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "periodEnd": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "nextConfirmationStatement": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                }
+                              }
+                            },
+                            "companyType": {
+                              "type": "object",
+                              "description": "Referenced type: CompanyType (see source contracts for full definition)"
+                            },
+                            "billingContact": {
+                              "type": "object",
+                              "properties": {
+                                "firstName": {
+                                  "type": "string"
+                                },
+                                "lastName": {
+                                  "type": "string"
+                                },
+                                "fullname": {
+                                  "type": "string"
+                                },
+                                "email": {
+                                  "type": "string"
+                                },
+                                "role": {
+                                  "type": "string"
+                                },
+                                "phone": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "email",
+                                "role"
+                              ]
+                            },
+                            "billingDetails": {
+                              "type": "object",
+                              "properties": {
+                                "price": {
+                                  "type": "object",
+                                  "description": "Referenced type: MonetaryAmount (see source contracts for full definition)"
+                                },
+                                "period": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "price",
+                                "period"
+                              ]
+                            },
+                            "registeredOfficeAddress": {
+                              "type": "object",
+                              "properties": {
+                                "addressLine1": {
+                                  "type": "string"
+                                },
+                                "addressLine2": {
+                                  "type": "string"
+                                },
+                                "city": {
+                                  "type": "string"
+                                },
+                                "country": {
+                                  "type": "string"
+                                },
+                                "postalCode": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "addressLine1",
+                                "city",
+                                "postalCode"
+                              ]
+                            },
+                            "formationDate": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "stripeIntegration": {
+                              "type": "object",
+                              "properties": {
+                                "startingAfterEventId": {
+                                  "type": "string"
+                                },
+                                "replayStrategy": {
+                                  "type": "string"
+                                },
+                                "customerId": {
+                                  "type": "string"
+                                },
+                                "ingestStartDate": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "customerId"
+                              ]
+                            },
+                            "asanaIntegration": {
+                              "type": "object",
+                              "properties": {
+                                "projectId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "projectId"
+                              ]
+                            },
+                            "signatureIntegration": {
+                              "type": "object",
+                              "properties": {
+                                "engagementLetterContact": {
+                                  "type": "object",
+                                  "properties": {
+                                    "firstName": {
+                                      "type": "string"
+                                    },
+                                    "lastName": {
+                                      "type": "string"
+                                    },
+                                    "fullname": {
+                                      "type": "string"
+                                    },
+                                    "email": {
+                                      "type": "string"
+                                    },
+                                    "role": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "email",
+                                    "role"
+                                  ]
+                                },
+                                "engagementLetterStatus": {
+                                  "type": "string"
+                                },
+                                "engagementLetterUrl": {
+                                  "type": "string"
+                                },
+                                "engagementLetterEnvelopeId": {
+                                  "type": "string"
+                                },
+                                "inviteAdminAfterSigning": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "signedDate": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "xeroIntegration": {
+                              "type": "object",
+                              "properties": {
+                                "extras": {
+                                  "type": "object",
+                                  "properties": {
+                                    "tenantId": {
+                                      "type": "string"
+                                    },
+                                    "shortCode": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "tenantId",
+                                    "shortCode"
+                                  ]
+                                },
+                                "companyRegistrationNumber": {
+                                  "type": "string"
+                                },
+                                "suspenseAccount": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "displayName": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "displayName"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "extras",
+                                "companyRegistrationNumber"
+                              ]
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "subscriptionStatus": {
+                              "type": "object",
+                              "description": "Referenced type: SubscriptionStatus (see source contracts for full definition)"
+                            },
+                            "subscriptionCreatedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "services": {
+                              "type": "object",
+                              "properties": {
+                                "payroll": {
+                                  "type": "object",
+                                  "properties": {
+                                    "firstEverPayroll": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "payeRegistrationWithHMRCComplete": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "payeOnlineServiceActivated": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "waitingOnHMRCForReg": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "payeAwaitingReferenceNumbers": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "employerNumber": {
+                                      "type": "string"
+                                    },
+                                    "accountsOfficeNumber": {
+                                      "type": "string"
+                                    },
+                                    "payingPeoplePendingRegistration": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "digitalPayeAgentAccess": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "contractualPayday": {
+                                      "type": "string"
+                                    },
+                                    "monthToStartPayroll": {
+                                      "type": "string"
+                                    },
+                                    "earningsWindowEnd": {
+                                      "type": "string"
+                                    },
+                                    "payFrequency": {
+                                      "type": "string"
+                                    },
+                                    "willingToClaimSmallBusinessRelief": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "requiredToPayApprenticeshipLevy": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "employeesReceivingBenefits": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "pensionProviders": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "pensionDelegateAccess": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "pensionSetup": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "penfoldPensionOption": {
+                                      "type": "string"
+                                    },
+                                    "enrolmentPolicyOption": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "payroll.p11d": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "payroll.psa": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "bookkeeping": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "bookkeeping.paymentprocessor": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "bookkeeping.mailboxprocessing": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "managementAccounts": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "vat": {
+                                  "type": "object",
+                                  "properties": {
+                                    "registrationStatus": {
+                                      "type": "string"
+                                    },
+                                    "haveAppliedWithHMRC": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "registrationNumber": {
+                                      "type": "string"
+                                    },
+                                    "registrationDate": {
+                                      "type": "string"
+                                    },
+                                    "frequency": {
+                                      "type": "string"
+                                    },
+                                    "standardVATRateOnAllSales": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "nonStandardVATRateCases": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "salesLocation": {
+                                      "type": "string"
+                                    },
+                                    "claimThreshold": {
+                                      "type": "number"
+                                    }
+                                  }
+                                },
+                                "annualAccounts": {
+                                  "type": "object",
+                                  "properties": {
+                                    "companyUTR": {
+                                      "type": "string"
+                                    },
+                                    "directorsLoan": {
+                                      "type": "string"
+                                    },
+                                    "interestInRAndD": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "interestedInMarkelTaxInsurance": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "hasDeferredRevenue": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    }
+                                  }
+                                },
+                                "annualAccounts.randdcredits": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "annualAccounts.directorct61": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "annualAccounts.deferredincome": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "directorSelfAssessment": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "emi": {
+                                  "type": "object",
+                                  "properties": {
+                                    "hasEMIOptionsScheme": {
+                                      "type": "boolean",
+                                      "enum": [
+                                        false,
+                                        true
+                                      ]
+                                    },
+                                    "interestedInEMIServices": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "emi.annualnotificationfiling": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "emi.valuation": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "emi.sh01filing": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "eisSeisFilings": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "confirmationStatement": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "registeredAddress": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                },
+                                "taxInsurance": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "updated": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled",
+                                    "updated"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "payroll",
+                                "payroll.p11d",
+                                "payroll.psa",
+                                "bookkeeping",
+                                "bookkeeping.paymentprocessor",
+                                "bookkeeping.mailboxprocessing",
+                                "managementAccounts",
+                                "vat",
+                                "annualAccounts",
+                                "annualAccounts.randdcredits",
+                                "annualAccounts.directorct61",
+                                "annualAccounts.deferredincome",
+                                "directorSelfAssessment",
+                                "emi",
+                                "emi.annualnotificationfiling",
+                                "emi.valuation",
+                                "emi.sh01filing",
+                                "eisSeisFilings",
+                                "confirmationStatement",
+                                "registeredAddress",
+                                "taxInsurance"
+                              ]
+                            },
+                            "generalSettings": {
+                              "type": "object",
+                              "properties": {
+                                "accountingSoftware": {
+                                  "type": "string"
+                                },
+                                "accountingSoftwareAdviserAccess": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "bankAccountsNotConnected": {
+                                  "type": "string"
+                                },
+                                "accessToRegisteredAddress": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "hasPreviousAccountant": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "previousAccountant": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "email": {
+                                      "type": "string"
+                                    },
+                                    "contactPermission": {
+                                      "type": "boolean"
+                                    },
+                                    "contactDate": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "email",
+                                    "contactPermission"
+                                  ]
+                                },
+                                "paymentProcessors": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "googleDriveLink": {
+                                  "type": "string"
+                                },
+                                "companyAuthCode": {
+                                  "type": "string"
+                                },
+                                "onboardingCallBooked": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "temporaryTeamLabel": {
+                                  "type": "string"
+                                },
+                                "footballTeam": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "clientPriority": {
+                                  "type": "string"
+                                },
+                                "clientFriendlyName": {
+                                  "type": "string"
+                                },
+                                "salesPerson": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "archived": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "kycCompany": {
+                              "type": "object",
+                              "properties": {
+                                "convictedOfFinancialCrime": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "personsMissing": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "overTenPercentRevenueCash": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "acceptCrypto": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "otherTradingName": {
+                                  "type": "string"
+                                },
+                                "employeeCount": {
+                                  "type": "string"
+                                },
+                                "tradingCountries": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "riskAssessments": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "completedBy": {
+                                        "type": "string"
+                                      },
+                                      "completedAt": {
+                                        "type": "string"
+                                      },
+                                      "amlRiskLevel": {
+                                        "type": "string"
+                                      },
+                                      "isEngagementAppropriate": {
+                                        "type": "boolean"
+                                      },
+                                      "ownersPoliticallyExposed": {
+                                        "type": "boolean"
+                                      },
+                                      "discrepanciesInProvidedInformation": {
+                                        "type": "boolean"
+                                      },
+                                      "hasAdverseMediaCoverage": {
+                                        "type": "boolean"
+                                      },
+                                      "clientBasedInHighRiskCountry": {
+                                        "type": "boolean"
+                                      },
+                                      "hasJursidictionalRisks": {
+                                        "type": "boolean"
+                                      },
+                                      "conflictOfInterest": {
+                                        "type": "boolean"
+                                      },
+                                      "conflictOfInterestDetails": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "completedBy",
+                                      "completedAt",
+                                      "amlRiskLevel",
+                                      "isEngagementAppropriate",
+                                      "ownersPoliticallyExposed",
+                                      "discrepanciesInProvidedInformation",
+                                      "hasAdverseMediaCoverage",
+                                      "clientBasedInHighRiskCountry",
+                                      "hasJursidictionalRisks",
+                                      "conflictOfInterest"
+                                    ]
+                                  },
+                                  "nullable": true
+                                }
+                              }
+                            },
+                            "kycPersons": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "role": {
+                                    "type": "object",
+                                    "description": "Referenced type: KYCPersonRole (see source contracts for full definition)"
+                                  },
+                                  "isDuplicate": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  },
+                                  "adverseMediaCheckRequired": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  },
+                                  "skipKyc": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false,
+                                      true
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "role"
+                                ]
+                              }
+                            },
+                            "payrollOnPlatform": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "hasSchedule": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "todosStartDate": {
+                              "type": "string"
+                            },
+                            "isDynamicPricing": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "catalogVersion": {
+                              "type": "string"
+                            },
+                            "payroll": {
+                              "type": "object",
+                              "properties": {
+                                "onPlatform": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "hasSchedule": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "hasUsedPayroll": {
+                                  "type": "boolean",
+                                  "enum": [
+                                    false,
+                                    true
+                                  ]
+                                },
+                                "payDayDefinition": {
+                                  "type": "object"
+                                },
+                                "startMonth": {
+                                  "type": "string"
+                                },
+                                "earningsWindowEndRule": {
+                                  "type": "string"
+                                },
+                                "nextPayrollDate": {
+                                  "type": "string"
+                                },
+                                "currentEarningsWindowStart": {
+                                  "type": "string"
+                                },
+                                "currentEarningsWindowEnd": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "sourceType",
+                            "clerkId",
+                            "companyRegistrationNumber",
+                            "accountingDates",
+                            "companyType",
+                            "registeredOfficeAddress",
+                            "formationDate",
+                            "subscriptionStatus"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "client"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "companyNumber": {
+                    "type": "string"
+                  },
+                  "billingContact": {
+                    "type": "object",
+                    "properties": {
+                      "firstName": {
+                        "type": "string"
+                      },
+                      "lastName": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "firstName",
+                      "lastName",
+                      "email",
+                      "role"
+                    ]
+                  },
+                  "generalSettings": {
+                    "type": "object",
+                    "properties": {
+                      "accountingSoftware": {
+                        "type": "string"
+                      },
+                      "accountingSoftwareAdviserAccess": {
+                        "type": "boolean",
+                        "enum": [
+                          false,
+                          true
+                        ]
+                      },
+                      "bankAccountsNotConnected": {
+                        "type": "string"
+                      },
+                      "accessToRegisteredAddress": {
+                        "type": "boolean",
+                        "enum": [
+                          false,
+                          true
+                        ]
+                      },
+                      "previousAccountant": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "contactPermission": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "email",
+                          "contactPermission"
+                        ]
+                      },
+                      "paymentProcessors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "googleDriveLink": {
+                        "type": "string"
+                      },
+                      "clientFriendlyName": {
+                        "type": "string"
+                      },
+                      "temporaryTeamLabel": {
+                        "type": "string"
+                      },
+                      "clientPriority": {
+                        "type": "string"
+                      },
+                      "salesPerson": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "engagementLetterContact": {
+                    "type": "object",
+                    "properties": {
+                      "firstName": {
+                        "type": "string"
+                      },
+                      "lastName": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "firstName",
+                      "lastName",
+                      "email",
+                      "role"
+                    ]
+                  },
+                  "billingDetails": {
+                    "type": "object",
+                    "properties": {
+                      "price": {
+                        "type": "number"
+                      },
+                      "period": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "price",
+                      "period"
+                    ]
+                  },
+                  "kycPersons": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "object",
+                          "description": "Referenced type: KYCPersonRole (see source contracts for full definition)"
+                        },
+                        "isDuplicate": {
+                          "type": "boolean",
+                          "enum": [
+                            false,
+                            true
+                          ]
+                        },
+                        "adverseMediaCheckRequired": {
+                          "type": "boolean",
+                          "enum": [
+                            false,
+                            true
+                          ]
+                        },
+                        "skipKyc": {
+                          "type": "boolean",
+                          "enum": [
+                            false,
+                            true
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "role"
+                      ]
+                    }
+                  },
+                  "inviteAdminAfterSigning": {
+                    "type": "boolean"
+                  },
+                  "startDate": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "companyNumber",
+                  "billingContact",
+                  "engagementLetterContact",
+                  "billingDetails",
+                  "inviteAdminAfterSigning"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/integrations/plaid": {
+      "post": {
+        "operationId": "createPlaidIntegration",
+        "summary": "Create Plaid Integration",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "institutionName": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "institutionName"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "publicToken": {
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "properties": {
+                      "institution": {
+                        "type": "object",
+                        "properties": {
+                          "institution_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "institution_id",
+                          "name"
+                        ]
+                      },
+                      "accounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "account_id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "mask": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "account_id",
+                            "name"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "institution",
+                      "accounts"
+                    ]
+                  }
+                },
+                "required": [
+                  "publicToken",
+                  "metadata"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/{clientId}": {
+      "delete": {
+        "operationId": "deleteClient",
+        "summary": "Delete Client",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/{clientId}/services/enable": {
+      "post": {
+        "operationId": "enableClientServices",
+        "summary": "Enable Client Services",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "services": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "services"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/integrations/{integration}": {
+      "get": {
+        "operationId": "getClientIntegrationByType",
+        "summary": "Get Client Integration By Type",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "integration",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "plaid",
+                "gmail"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "integrations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "itemId": {
+                                "type": "string"
+                              },
+                              "institutionName": {
+                                "type": "string"
+                              },
+                              "products": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "enum": [
+                                    "transactions"
+                                  ]
+                                }
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "active",
+                                  "error",
+                                  "disconnected"
+                                ]
+                              },
+                              "statusMessage": {
+                                "type": "string"
+                              },
+                              "expiryDate": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "itemId",
+                              "institutionName",
+                              "products",
+                              "status"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "integrations"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/company/persons/{companyNumber}": {
+      "get": {
+        "operationId": "getCompanyPersons",
+        "summary": "Get Company Persons",
+        "parameters": [
+          {
+            "name": "companyNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "persons": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "description": "Referenced type: CompanyPerson (see source contracts for full definition)"
+                          }
+                        }
+                      },
+                      "required": [
+                        "persons"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/integrations/plaid/init": {
+      "get": {
+        "operationId": "getPlaidLinkToken",
+        "summary": "Get Plaid Link Token",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "linkToken": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "linkToken"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/{clientId}/integrations/{integration}/status": {
+      "put": {
+        "operationId": "updateClientIntegrationStatus",
+        "summary": "Update Client Integration Status",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "integration",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "disconnected"
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/{clientId}/transaction-lock-date": {
+      "put": {
+        "operationId": "updateXeroTransactionLockDate",
+        "summary": "Update Xero Transaction Lock Date",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transactionLockDate": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "transactionLockDate"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

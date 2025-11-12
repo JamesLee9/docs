@@ -1,0 +1,1813 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Payments Api",
+    "description": "API contracts for payments domain",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://payments.dev.api.novabook.com",
+      "description": "Development"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Clerk JWT authentication token. Obtain via Clerk authentication."
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/clients/{clientId}/payments": {
+      "get": {
+        "operationId": "getClientPayments",
+        "summary": "Get Client Payments",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateRaisedStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateRaisedEnd",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dueDateStart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dueDateEnd",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amountMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "amountMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "amountEqual",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "payeeName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "dateRaised",
+                "dueDate",
+                "totalAmount",
+                "payeeName",
+                "status",
+                "createdAt"
+              ]
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "docId": {
+                                "type": "string"
+                              },
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "filePath": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "needs_review",
+                                  "ready_for_payment",
+                                  "paid"
+                                ]
+                              },
+                              "clientReportedStatus": {
+                                "type": "string",
+                                "enum": [
+                                  "needs_review",
+                                  "ready_for_payment",
+                                  "paid"
+                                ]
+                              },
+                              "dueDate": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "bill",
+                                  "reimbursement"
+                                ]
+                              },
+                              "dateRaised": {
+                                "type": "string"
+                              },
+                              "currencyCode": {
+                                "type": "string"
+                              },
+                              "currencyPrecision": {
+                                "type": "number"
+                              },
+                              "totalAmount": {},
+                              "sortCode": {
+                                "type": "string"
+                              },
+                              "accountNumber": {
+                                "type": "string"
+                              },
+                              "payeeName": {
+                                "type": "string"
+                              },
+                              "paymentReference": {
+                                "type": "string"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "docId",
+                              "clientId",
+                              "filePath",
+                              "status",
+                              "createdAt",
+                              "updatedAt"
+                            ]
+                          }
+                        },
+                        "totalItems": {
+                          "type": "number"
+                        },
+                        "pageSize": {
+                          "type": "number"
+                        },
+                        "currentPage": {
+                          "type": "number"
+                        },
+                        "totalPages": {
+                          "type": "number"
+                        },
+                        "hasNextPage": {
+                          "type": "boolean"
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "totalItems",
+                        "pageSize",
+                        "currentPage",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/payments/{paymentId}/file": {
+      "get": {
+        "operationId": "getPaymentFileUrl",
+        "summary": "Get Payment File Url",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/payments/{paymentId}": {
+      "get": {
+        "operationId": "getPayment",
+        "summary": "Get Payment",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "docId": {
+                          "type": "string"
+                        },
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "filePath": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "needs_review",
+                            "ready_for_payment",
+                            "paid"
+                          ]
+                        },
+                        "clientReportedStatus": {
+                          "type": "string",
+                          "enum": [
+                            "needs_review",
+                            "ready_for_payment",
+                            "paid"
+                          ]
+                        },
+                        "dueDate": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "bill",
+                            "reimbursement"
+                          ]
+                        },
+                        "dateRaised": {
+                          "type": "string"
+                        },
+                        "currencyCode": {
+                          "type": "string"
+                        },
+                        "currencyPrecision": {
+                          "type": "number"
+                        },
+                        "totalAmount": {},
+                        "sortCode": {
+                          "type": "string"
+                        },
+                        "accountNumber": {
+                          "type": "string"
+                        },
+                        "payeeName": {
+                          "type": "string"
+                        },
+                        "paymentReference": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "docId",
+                        "clientId",
+                        "filePath",
+                        "status",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchClientPayment",
+        "summary": "Patch Client Payment",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "paymentId": {
+                          "type": "string"
+                        },
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "payeeName": {
+                          "type": "string"
+                        },
+                        "sortCode": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "needs_review",
+                            "ready_for_payment",
+                            "paid"
+                          ]
+                        },
+                        "accountNumber": {
+                          "type": "string"
+                        },
+                        "paymentReference": {
+                          "type": "string"
+                        },
+                        "totalAmount": {},
+                        "currencyCode": {},
+                        "currencyPrecision": {
+                          "type": "number"
+                        },
+                        "dueDate": {
+                          "type": "string"
+                        },
+                        "dateRaised": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "paymentId",
+                        "clientId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "needs_review",
+                      "ready_for_payment",
+                      "paid"
+                    ],
+                    "nullable": true
+                  },
+                  "payeeName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "paymentReference": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "totalAmount": {},
+                  "dueDate": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "dateRaised": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "operationId": "getStatus",
+        "summary": "Get Status",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "ok": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "ok"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/payments/{paymentId}/issue-payment/plaid": {
+      "post": {
+        "operationId": "issuePaymentPlaid",
+        "summary": "Issue Payment Plaid",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "linkToken": {
+                          "type": "string"
+                        },
+                        "paymentAttemptId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "linkToken",
+                        "paymentAttemptId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/payment-processing-status": {
+      "get": {
+        "operationId": "listPaymentProcessingStatus",
+        "summary": "List Payment Processing Status",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "processing",
+                "completed",
+                "failed"
+              ]
+            }
+          },
+          {
+            "name": "step",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "document-extraction"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "processingDocumentId": {
+                                "type": "string"
+                              },
+                              "startedAt": {
+                                "type": "string"
+                              },
+                              "currentStep": {
+                                "type": "string",
+                                "enum": [
+                                  "document-extraction"
+                                ]
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "processing",
+                                  "completed",
+                                  "failed"
+                                ]
+                              },
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "errors": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "required": [
+                              "processingDocumentId",
+                              "startedAt",
+                              "currentStep",
+                              "status"
+                            ]
+                          }
+                        },
+                        "hasNextPage": {
+                          "type": "boolean"
+                        },
+                        "nextCursor": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "hasNextPage",
+                        "nextCursor"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/payments/{paymentId}/mark-as-paid": {
+      "post": {
+        "operationId": "markAsPaid",
+        "summary": "Mark As Paid",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "docId": {
+                          "type": "string"
+                        },
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "filePath": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "needs_review",
+                            "ready_for_payment",
+                            "paid"
+                          ]
+                        },
+                        "clientReportedStatus": {
+                          "type": "string",
+                          "enum": [
+                            "needs_review",
+                            "ready_for_payment",
+                            "paid"
+                          ]
+                        },
+                        "dueDate": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "bill",
+                            "reimbursement"
+                          ]
+                        },
+                        "dateRaised": {
+                          "type": "string"
+                        },
+                        "currencyCode": {
+                          "type": "string"
+                        },
+                        "currencyPrecision": {
+                          "type": "number"
+                        },
+                        "totalAmount": {},
+                        "sortCode": {
+                          "type": "string"
+                        },
+                        "accountNumber": {
+                          "type": "string"
+                        },
+                        "payeeName": {
+                          "type": "string"
+                        },
+                        "paymentReference": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "docId",
+                        "clientId",
+                        "filePath",
+                        "status",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/payments/{paymentId}/update-status": {
+      "post": {
+        "operationId": "updatePaymentStatus",
+        "summary": "Update Payment Status",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "success": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ]
+                        }
+                      },
+                      "required": [
+                        "success"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "paid",
+                      "failed",
+                      "cancelled"
+                    ]
+                  },
+                  "paymentAttemptId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "paymentAttemptId"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/upload-payment-document": {
+      "post": {
+        "operationId": "uploadPaymentDocument",
+        "summary": "Upload Payment Document",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "urls": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string"
+                              },
+                              "filename": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "url",
+                              "filename"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "urls"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "filename": {
+                          "type": "string"
+                        },
+                        "contentType": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "filename",
+                        "contentType"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "files"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

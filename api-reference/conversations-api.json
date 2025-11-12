@@ -1,0 +1,236 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Conversations Api",
+    "description": "API contracts for conversations domain",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://conversations.dev.api.novabook.com",
+      "description": "Development"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Clerk JWT authentication token. Obtain via Clerk authentication."
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/{clientId}/{conversationId}/join": {
+      "put": {
+        "operationId": "joinConversation",
+        "summary": "Join Conversation",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{clientId}/{conversationId}/status": {
+      "patch": {
+        "operationId": "updateConversationStatus",
+        "summary": "Update Conversation Status",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

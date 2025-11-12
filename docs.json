@@ -1,100 +1,149 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "palm",
-  "name": "Novabook Docs",
-  "colors": {
-    "primary": "#13EA79",
-    "light": "#13EA79",
-    "dark": "#021C0E"
-  },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "openapi": {
-              "source": "/api-reference/openapi.json",
-              "directory": "api-reference"
+    "$schema": "https://mintlify.com/docs.json",
+    "theme": "palm",
+    "name": "Novabook Docs",
+    "colors": {
+        "primary": "#13EA79",
+        "light": "#13EA79",
+        "dark": "#021C0E"
+    },
+    "favicon": "/favicon.svg",
+    "navigation": {
+        "tabs": [
+            {
+                "tab": "Guides",
+                "groups": [
+                    {
+                        "group": "Getting started",
+                        "pages": [
+                            "index",
+                            "quickstart",
+                            "development"
+                        ]
+                    },
+                    {
+                        "group": "Customization",
+                        "pages": [
+                            "essentials/settings",
+                            "essentials/navigation"
+                        ]
+                    },
+                    {
+                        "group": "Writing content",
+                        "pages": [
+                            "essentials/markdown",
+                            "essentials/code",
+                            "essentials/images",
+                            "essentials/reusable-snippets"
+                        ]
+                    },
+                    {
+                        "group": "AI tools",
+                        "pages": [
+                            "ai-tools/cursor",
+                            "ai-tools/claude-code",
+                            "ai-tools/windsurf"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tab": "API reference",
+                "groups": [
+                    {
+                        "group": "Bookkeeping API",
+                        "openapi": {
+                            "source": "/api-reference/bookkeeping-api.json",
+                            "directory": "api-reference"
+                        }
+                    },
+                    {
+                        "group": "Clients API",
+                        "openapi": {
+                            "source": "/api-reference/clients-api.json",
+                            "directory": "api-reference"
+                        }
+                    },
+                    {
+                        "group": "Conversations API",
+                        "openapi": {
+                            "source": "/api-reference/conversations-api.json",
+                            "directory": "api-reference"
+                        }
+                    },
+                    {
+                        "group": "Filing API",
+                        "openapi": {
+                            "source": "/api-reference/filing-api.json",
+                            "directory": "api-reference"
+                        }
+                    },
+                    {
+                        "group": "Payments API",
+                        "openapi": {
+                            "source": "/api-reference/payments-api.json",
+                            "directory": "api-reference"
+                        }
+                    },
+                    {
+                        "group": "Payrolls API",
+                        "openapi": {
+                            "source": "/api-reference/payrolls-api.json",
+                            "directory": "api-reference"
+                        }
+                    },
+                    {
+                        "group": "Subscriptions API",
+                        "openapi": {
+                            "source": "/api-reference/subscriptions-api.json",
+                            "directory": "api-reference"
+                        }
+                    },
+                    {
+                        "group": "VAT API",
+                        "openapi": {
+                            "source": "/api-reference/vat-api.json",
+                            "directory": "api-reference"
+                        }
+                    }
+                ]
             }
-           }
         ]
-      }
-    ]
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+    },
+    "logo": {
+        "light": "/logo/light.svg",
+        "dark": "/logo/dark.svg"
+    },
+    "navbar": {
+        "links": [
+            {
+                "label": "Support",
+                "href": "mailto:hi@mintlify.com"
+            }
+        ],
+        "primary": {
+            "type": "button",
+            "label": "Dashboard",
+            "href": "https://dashboard.mintlify.com"
+        }
+    },
+    "contextual": {
+        "options": [
+            "copy",
+            "view",
+            "chatgpt",
+            "claude",
+            "perplexity",
+            "mcp",
+            "cursor",
+            "vscode"
+        ]
+    },
+    "footer": {
+        "socials": {
+            "x": "https://x.com/mintlify",
+            "github": "https://github.com/mintlify",
+            "linkedin": "https://linkedin.com/company/mintlify"
+        }
     }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
-  }
 }

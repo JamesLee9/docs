@@ -1,0 +1,3251 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Vat Api",
+    "description": "API contracts for vat domain",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://vat.dev.api.novabook.com",
+      "description": "Development"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Clerk JWT authentication token. Obtain via Clerk authentication."
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/vat/{invitationId}/agent-auth-invitation": {
+      "put": {
+        "operationId": "acceptTestAgentAuthInvitation",
+        "summary": "Accept Test Agent Auth Invitation",
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "cancelAgentAuthInvitation",
+        "summary": "Cancel Agent Auth Invitation",
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/agent-auth-relationship": {
+      "get": {
+        "operationId": "confirmAgentAuthRelationship",
+        "summary": "Confirm Agent Auth Relationship",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "success": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "success"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/test-org-user": {
+      "post": {
+        "operationId": "createTestOrgUser",
+        "summary": "Create Test Org User",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        201
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "userId": {
+                              "type": "string"
+                            },
+                            "scopes": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "vatRegistrationDetails": {
+                              "type": "object",
+                              "properties": {
+                                "registrationNumber": {
+                                  "type": "string"
+                                },
+                                "registrationDate": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "registrationNumber",
+                                "registrationDate"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "userId",
+                            "scopes",
+                            "vatRegistrationDetails"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "user"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}": {
+      "delete": {
+        "operationId": "deleteVatInfo",
+        "summary": "Delete Vat Info",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getVatInfo",
+        "summary": "Get Vat Info",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "vatInfo": {
+                          "type": "object",
+                          "properties": {
+                            "clientId": {
+                              "type": "string"
+                            },
+                            "registrationStatus": {},
+                            "haveAppliedWithHMRC": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "registrationNumber": {
+                              "type": "string"
+                            },
+                            "registrationDate": {
+                              "type": "string"
+                            },
+                            "frequency": {},
+                            "standardVATRateOnAllSales": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            },
+                            "nonStandardVATRateCases": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "salesLocation": {},
+                            "claimThreshold": {
+                              "type": "number"
+                            },
+                            "agentAuthStatus": {},
+                            "lastObligationsSync": {
+                              "type": "string"
+                            },
+                            "updated": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "clientId",
+                            "updated"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "vatInfo"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "upsertVatInfo",
+        "summary": "Upsert Vat Info",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "agentAuthStatus": {},
+                  "claimThreshold": {
+                    "type": "number"
+                  },
+                  "frequency": {},
+                  "haveAppliedWithHMRC": {
+                    "type": "boolean",
+                    "enum": [
+                      false,
+                      true
+                    ]
+                  },
+                  "nonStandardVATRateCases": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "registrationDate": {
+                    "type": "string"
+                  },
+                  "registrationNumber": {
+                    "type": "string"
+                  },
+                  "registrationStatus": {},
+                  "salesLocation": {},
+                  "standardVATRateOnAllSales": {
+                    "type": "boolean",
+                    "enum": [
+                      false,
+                      true
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/agent-auth-invitation": {
+      "get": {
+        "operationId": "getAgentAuthInvitation",
+        "summary": "Get Agent Auth Invitation",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "invitationUrl": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "invitationUrl"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "invitationUrl": {
+                              "type": "string"
+                            },
+                            "invitationId": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "invitationUrl",
+                            "invitationId"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error: CONFLICT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "CONFLICT"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/financial-details/{penaltyChargeReference}": {
+      "get": {
+        "operationId": "getFinancialDetails",
+        "summary": "Get Financial Details",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "penaltyChargeReference",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "totalisations": {
+                          "type": "object",
+                          "properties": {
+                            "totalOverdue": {
+                              "type": "number"
+                            },
+                            "totalNotYetDue": {
+                              "type": "number"
+                            },
+                            "totalBalance": {
+                              "type": "number"
+                            },
+                            "totalCredit": {
+                              "type": "number"
+                            },
+                            "totalCleared": {
+                              "type": "number"
+                            },
+                            "additionalReceivableTotalisations": {
+                              "type": "object",
+                              "properties": {
+                                "totalAccountPostedInterest": {
+                                  "type": "number"
+                                },
+                                "totalAccountAccruingInterest": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "documentDetails": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "postingDate": {
+                                "type": "string"
+                              },
+                              "issueDate": {
+                                "type": "string"
+                              },
+                              "documentInterestTotals": {
+                                "type": "object",
+                                "properties": {
+                                  "interestPostedAmount": {
+                                    "type": "number"
+                                  },
+                                  "interestAccruingAmount": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "documentTotalAmount": {
+                                "type": "number"
+                              },
+                              "documentClearedAmount": {
+                                "type": "number"
+                              },
+                              "documentOutstandingAmount": {
+                                "type": "number"
+                              },
+                              "lineItemDetails": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "chargeDescription": {
+                                      "type": "string"
+                                    },
+                                    "periodFromDate": {
+                                      "type": "string"
+                                    },
+                                    "periodToDate": {
+                                      "type": "string"
+                                    },
+                                    "netDueDate": {
+                                      "type": "string"
+                                    },
+                                    "amount": {
+                                      "type": "number"
+                                    },
+                                    "lineItemInterestDetails": {
+                                      "type": "object",
+                                      "properties": {
+                                        "interestStartDate": {
+                                          "type": "string"
+                                        },
+                                        "currentInterestRate": {
+                                          "type": "number"
+                                        },
+                                        "interestPostedAmount": {
+                                          "type": "number"
+                                        },
+                                        "interestAccruingAmount": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/agents/auth-requests": {
+      "get": {
+        "operationId": "getRecentAgentAuthRequests",
+        "summary": "Get Recent Agent Auth Requests",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "agentAuthRequests": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "arn": {
+                                "type": "string"
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "updated": {
+                                "type": "string"
+                              },
+                              "expiresOn": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "Pending",
+                                  "Accepted",
+                                  "Rejected",
+                                  "Cancelled",
+                                  "Deauthorised",
+                                  "Expired",
+                                  "Partialauth"
+                                ]
+                              },
+                              "clientActionUrl": {
+                                "type": "string"
+                              },
+                              "agentType": {
+                                "type": "string",
+                                "enum": [
+                                  "main",
+                                  "supporting"
+                                ]
+                              },
+                              "service": {
+                                "type": "string",
+                                "enum": [
+                                  "MTD-IT",
+                                  "MTD-VAT"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "arn",
+                              "created",
+                              "updated",
+                              "expiresOn",
+                              "status",
+                              "clientActionUrl",
+                              "agentType",
+                              "service"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "agentAuthRequests"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/customer-info": {
+      "get": {
+        "operationId": "getVatCustomerInfo",
+        "summary": "Get Vat Customer Info",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "customerInfo": {
+                          "type": "object",
+                          "properties": {
+                            "customerDetails": {
+                              "type": "object",
+                              "properties": {
+                                "effectiveRegistrationDate": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "flatRateScheme": {
+                              "type": "object",
+                              "properties": {
+                                "frsCategory": {},
+                                "startDate": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/batch": {
+      "post": {
+        "operationId": "getVatInfoByIds",
+        "summary": "Get Vat Info By Ids",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "vatInfo": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "registrationStatus": {},
+                              "haveAppliedWithHMRC": {
+                                "type": "boolean",
+                                "enum": [
+                                  false,
+                                  true
+                                ]
+                              },
+                              "registrationNumber": {
+                                "type": "string"
+                              },
+                              "registrationDate": {
+                                "type": "string"
+                              },
+                              "frequency": {},
+                              "standardVATRateOnAllSales": {
+                                "type": "boolean",
+                                "enum": [
+                                  false,
+                                  true
+                                ]
+                              },
+                              "nonStandardVATRateCases": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "salesLocation": {},
+                              "claimThreshold": {
+                                "type": "number"
+                              },
+                              "agentAuthStatus": {},
+                              "lastObligationsSync": {
+                                "type": "string"
+                              },
+                              "updated": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "clientId",
+                              "updated"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "vatInfo"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "clientIds"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/liabilities": {
+      "get": {
+        "operationId": "getVatLiabilities",
+        "summary": "Get Vat Liabilities",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "liabilities": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "taxPeriod": {
+                                "type": "object",
+                                "properties": {
+                                  "from": {
+                                    "type": "string"
+                                  },
+                                  "to": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "from",
+                                  "to"
+                                ]
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "originalAmount": {
+                                "type": "number"
+                              },
+                              "outstandingAmount": {
+                                "type": "number"
+                              },
+                              "due": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "originalAmount"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "liabilities"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/obligations": {
+      "get": {
+        "operationId": "getVatObligations",
+        "summary": "Get Vat Obligations",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {}
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {}
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "clientId": {
+                                "type": "string"
+                              },
+                              "clientName": {
+                                "type": "string"
+                              },
+                              "clientPriority": {
+                                "type": "string"
+                              },
+                              "dueDate": {
+                                "type": "string"
+                              },
+                              "periodEnd": {
+                                "type": "string"
+                              },
+                              "periodKey": {
+                                "type": "string"
+                              },
+                              "periodStart": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "fulfilled",
+                                  "open"
+                                ]
+                              },
+                              "teamLabel": {
+                                "type": "string"
+                              },
+                              "receivedDate": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "clientId",
+                              "dueDate",
+                              "periodEnd",
+                              "periodKey",
+                              "periodStart",
+                              "status"
+                            ]
+                          }
+                        },
+                        "hasNextPage": {
+                          "type": "boolean"
+                        },
+                        "nextCursor": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "hasNextPage",
+                        "nextCursor"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/payments": {
+      "get": {
+        "operationId": "getVatPayments",
+        "summary": "Get Vat Payments",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "payments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "amount": {
+                                "type": "number"
+                              },
+                              "received": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "amount",
+                              "received"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "payments"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/penalties": {
+      "get": {
+        "operationId": "getVatPenalties",
+        "summary": "Get Vat Penalties",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "vatPenalties": {
+                          "type": "object",
+                          "properties": {
+                            "totalisations": {
+                              "type": "object",
+                              "properties": {
+                                "lateSubmissionPenaltyTotalValue": {
+                                  "type": "number"
+                                },
+                                "penalisedPrincipalTotal": {
+                                  "type": "number"
+                                },
+                                "latePaymentPenaltyPostedTotal": {
+                                  "type": "number"
+                                },
+                                "latePaymentPenaltyEstimateTotal": {
+                                  "type": "number"
+                                }
+                              }
+                            },
+                            "lateSubmissionPenalty": {
+                              "type": "object",
+                              "properties": {
+                                "summary": {
+                                  "type": "object",
+                                  "properties": {
+                                    "activePenaltyPoints": {
+                                      "type": "number"
+                                    },
+                                    "inactivePenaltyPoints": {
+                                      "type": "number"
+                                    },
+                                    "periodOfComplianceAchievement": {
+                                      "type": "string"
+                                    },
+                                    "regimeThreshold": {
+                                      "type": "string"
+                                    },
+                                    "penaltyChargeAmount": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "activePenaltyPoints",
+                                    "inactivePenaltyPoints",
+                                    "periodOfComplianceAchievement",
+                                    "regimeThreshold",
+                                    "penaltyChargeAmount"
+                                  ]
+                                },
+                                "details": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "penaltyNumber": {
+                                        "type": "string"
+                                      },
+                                      "penaltyOrder": {
+                                        "type": "string"
+                                      },
+                                      "penaltyCategory": {
+                                        "type": "string",
+                                        "enum": [
+                                          "point",
+                                          "threshold",
+                                          "charge"
+                                        ]
+                                      },
+                                      "penaltyStatus": {
+                                        "type": "string",
+                                        "enum": [
+                                          "active",
+                                          "inactive"
+                                        ]
+                                      },
+                                      "frequencyAdjustmentPointIndicator": {
+                                        "type": "string"
+                                      },
+                                      "penaltyCreationDate": {
+                                        "type": "string"
+                                      },
+                                      "penaltyExpiryDate": {
+                                        "type": "string"
+                                      },
+                                      "expiryReason": {
+                                        "type": "string",
+                                        "enum": [
+                                          "appeal",
+                                          "submission-frequency-change",
+                                          "obligations-reversed",
+                                          "HMRC-removed",
+                                          "natural-expiry",
+                                          "penalty-removed",
+                                          "expiry-conditions-met",
+                                          "HMRC-reset"
+                                        ]
+                                      },
+                                      "communicationsDate": {
+                                        "type": "string"
+                                      },
+                                      "lateSubmissions": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "lateSubmissionID": {
+                                              "type": "string"
+                                            },
+                                            "taxReturnStatus": {
+                                              "type": "string",
+                                              "enum": [
+                                                "Open",
+                                                "Fulfilled",
+                                                "Reversed"
+                                              ]
+                                            },
+                                            "taxPeriodStartDate": {
+                                              "type": "string"
+                                            },
+                                            "taxPeriodEndDate": {
+                                              "type": "string"
+                                            },
+                                            "taxPeriodDueDate": {
+                                              "type": "string"
+                                            },
+                                            "returnReceiptDate": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "lateSubmissionID",
+                                            "taxReturnStatus"
+                                          ]
+                                        }
+                                      },
+                                      "appealInformation": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "appealStatus": {
+                                              "type": "string",
+                                              "enum": [
+                                                "under-appeal",
+                                                "appeal-upheld",
+                                                "appeal-rejected",
+                                                "cannot-be-appealed"
+                                              ]
+                                            },
+                                            "appealLevel": {
+                                              "type": "string",
+                                              "enum": [
+                                                "statutory-review",
+                                                "appeal-first-tier-tribunal"
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "appealStatus",
+                                            "appealLevel"
+                                          ]
+                                        }
+                                      },
+                                      "chargeReference": {
+                                        "type": "string"
+                                      },
+                                      "chargeAmount": {
+                                        "type": "number"
+                                      },
+                                      "chargeOutstandingAmount": {
+                                        "type": "number"
+                                      },
+                                      "chargeDueDate": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "penaltyNumber",
+                                      "penaltyOrder",
+                                      "penaltyCategory",
+                                      "penaltyStatus",
+                                      "penaltyCreationDate",
+                                      "penaltyExpiryDate",
+                                      "expiryReason"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "summary",
+                                "details"
+                              ]
+                            },
+                            "latePaymentPenalty": {
+                              "type": "object",
+                              "properties": {
+                                "details": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "principalChargeReference": {
+                                        "type": "string"
+                                      },
+                                      "penaltyCategory": {
+                                        "type": "string"
+                                      },
+                                      "penaltyStatus": {
+                                        "type": "string",
+                                        "enum": [
+                                          "accruing",
+                                          "posted"
+                                        ]
+                                      },
+                                      "penaltyAmountAccruing": {
+                                        "type": "number"
+                                      },
+                                      "penaltyAmountPosted": {
+                                        "type": "number"
+                                      },
+                                      "penaltyAmountPaid": {
+                                        "type": "number"
+                                      },
+                                      "penaltyAmountOutstanding": {
+                                        "type": "number"
+                                      },
+                                      "latePaymentPenalty1LowerRateCalculationAmount": {
+                                        "type": "number"
+                                      },
+                                      "latePaymentPenalty1LowerRatePercentage": {
+                                        "type": "number"
+                                      },
+                                      "latePaymentPenalty1HigherRateCalculationAmount": {
+                                        "type": "number"
+                                      },
+                                      "latePaymentPenalty1HigherRatePercentage": {
+                                        "type": "number"
+                                      },
+                                      "latePaymentPenalty2Days": {
+                                        "type": "string"
+                                      },
+                                      "latePaymentPenalty2Percentage": {
+                                        "type": "number"
+                                      },
+                                      "penaltyChargeCreationDate": {
+                                        "type": "string"
+                                      },
+                                      "communicationsDate": {
+                                        "type": "string"
+                                      },
+                                      "penaltyChargeReference": {
+                                        "type": "string"
+                                      },
+                                      "penaltyChargeDueDate": {
+                                        "type": "string"
+                                      },
+                                      "appealInformation": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "appealStatus": {
+                                              "type": "string",
+                                              "enum": [
+                                                "under-appeal",
+                                                "appeal-upheld",
+                                                "appeal-rejected",
+                                                "cannot-be-appealed"
+                                              ]
+                                            },
+                                            "appealLevel": {
+                                              "type": "string",
+                                              "enum": [
+                                                "statutory-review",
+                                                "appeal-first-tier-tribunal"
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "appealStatus",
+                                            "appealLevel"
+                                          ]
+                                        }
+                                      },
+                                      "principalChargeDocNumber": {
+                                        "type": "string"
+                                      },
+                                      "principalChargeBillingFrom": {
+                                        "type": "string"
+                                      },
+                                      "principalChargeBillingTo": {
+                                        "type": "string"
+                                      },
+                                      "principalChargeDueDate": {
+                                        "type": "string"
+                                      },
+                                      "principalChargeLatestClearing": {
+                                        "type": "string"
+                                      },
+                                      "timeToPay": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "timeToPayStartDate": {
+                                              "type": "string"
+                                            },
+                                            "timeToPayEndDate": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "principalChargeReference",
+                                      "penaltyCategory",
+                                      "penaltyStatus",
+                                      "penaltyAmountAccruing",
+                                      "penaltyAmountPosted",
+                                      "principalChargeDocNumber",
+                                      "principalChargeBillingFrom",
+                                      "principalChargeBillingTo",
+                                      "principalChargeDueDate"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "vatPenalties"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/return/{periodKey}": {
+      "get": {
+        "operationId": "getVatReturn",
+        "summary": "Get Vat Return",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "periodKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "vatReturn": {
+                          "type": "object",
+                          "properties": {
+                            "periodKey": {
+                              "type": "string"
+                            },
+                            "vatDueSales": {
+                              "type": "number"
+                            },
+                            "vatDueAcquisitions": {
+                              "type": "number"
+                            },
+                            "totalVatDue": {
+                              "type": "number"
+                            },
+                            "vatReclaimedCurrPeriod": {
+                              "type": "number"
+                            },
+                            "netVatDue": {
+                              "type": "number"
+                            },
+                            "totalValueSalesExVAT": {
+                              "type": "number"
+                            },
+                            "totalValuePurchasesExVAT": {
+                              "type": "number"
+                            },
+                            "totalValueGoodsSuppliedExVAT": {
+                              "type": "number"
+                            },
+                            "totalAcquisitionsExVAT": {
+                              "type": "number"
+                            },
+                            "finalised": {
+                              "type": "boolean",
+                              "enum": [
+                                false,
+                                true
+                              ]
+                            }
+                          },
+                          "required": [
+                            "periodKey",
+                            "vatDueSales",
+                            "vatDueAcquisitions",
+                            "totalVatDue",
+                            "vatReclaimedCurrPeriod",
+                            "netVatDue",
+                            "totalValueSalesExVAT",
+                            "totalValuePurchasesExVAT",
+                            "totalValueGoodsSuppliedExVAT",
+                            "totalAcquisitionsExVAT",
+                            "finalised"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "vatReturn"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vat/{clientId}/returns": {
+      "post": {
+        "operationId": "submitVatReturn",
+        "summary": "Submit Vat Return",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "processingDate": {
+                          "type": "string"
+                        },
+                        "formBundleNumber": {
+                          "type": "string"
+                        },
+                        "paymentIndicator": {
+                          "type": "string",
+                          "enum": [
+                            "DD",
+                            "BANK"
+                          ]
+                        },
+                        "chargeRefNumber": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "processingDate",
+                        "formBundleNumber",
+                        "paymentIndicator",
+                        "chargeRefNumber"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "periodKey": {
+                    "type": "string"
+                  },
+                  "vatDueSales": {
+                    "type": "number"
+                  },
+                  "vatDueAcquisitions": {
+                    "type": "number"
+                  },
+                  "totalVatDue": {
+                    "type": "number"
+                  },
+                  "vatReclaimedCurrPeriod": {
+                    "type": "number"
+                  },
+                  "netVatDue": {
+                    "type": "number"
+                  },
+                  "totalValueSalesExVAT": {
+                    "type": "number"
+                  },
+                  "totalValuePurchasesExVAT": {
+                    "type": "number"
+                  },
+                  "totalValueGoodsSuppliedExVAT": {
+                    "type": "number"
+                  },
+                  "totalAcquisitionsExVAT": {
+                    "type": "number"
+                  },
+                  "finalised": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "periodKey",
+                  "vatDueSales",
+                  "vatDueAcquisitions",
+                  "totalVatDue",
+                  "vatReclaimedCurrPeriod",
+                  "netVatDue",
+                  "totalValueSalesExVAT",
+                  "totalValuePurchasesExVAT",
+                  "totalValueGoodsSuppliedExVAT",
+                  "totalAcquisitionsExVAT",
+                  "finalised"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/vat/{clientId}": {
+      "post": {
+        "operationId": "upsertVatInfoV2",
+        "summary": "Upsert Vat Info V2",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    },
+                    "body": {}
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error: CONFLICT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "CONFLICT"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "agentAuthStatus": {},
+                  "claimThreshold": {
+                    "type": "number"
+                  },
+                  "frequency": {},
+                  "haveAppliedWithHMRC": {
+                    "type": "boolean",
+                    "enum": [
+                      false,
+                      true
+                    ]
+                  },
+                  "nonStandardVATRateCases": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "registrationDate": {
+                    "type": "string"
+                  },
+                  "registrationNumber": {
+                    "type": "string"
+                  },
+                  "registrationStatus": {},
+                  "salesLocation": {},
+                  "standardVATRateOnAllSales": {
+                    "type": "boolean",
+                    "enum": [
+                      false,
+                      true
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

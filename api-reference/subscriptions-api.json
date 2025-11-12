@@ -1,0 +1,1970 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Subscriptions Api",
+    "description": "API contracts for subscriptions domain",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://subscriptions.dev.api.novabook.com",
+      "description": "Development"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Clerk JWT authentication token. Obtain via Clerk authentication."
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/clients/{clientId}/subscription": {
+      "post": {
+        "operationId": "createSubscription",
+        "summary": "Create Subscription",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        201
+                      ]
+                    },
+                    "body": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "schedule"
+                              ]
+                            },
+                            "schedule": {
+                              "type": "object",
+                              "description": "Referenced type: SubscriptionSchedule (see source contracts for full definition)"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "schedule"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "prices"
+                              ]
+                            },
+                            "prices": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "description": "Referenced type: Price (see source contracts for full definition)"
+                              }
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "prices"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startDate": {
+                    "type": "string"
+                  },
+                  "billingFrequency": {
+                    "type": "number"
+                  },
+                  "percentageDiscount": {
+                    "type": "number"
+                  },
+                  "services": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "Referenced type: InputService (see source contracts for full definition)"
+                    }
+                  }
+                },
+                "required": [
+                  "services"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/subscription/history": {
+      "get": {
+        "operationId": "getSubscriptionHistory",
+        "summary": "Get Subscription History",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "eventType": {
+                            "type": "string",
+                            "enum": [
+                              "subscription_created",
+                              "subscription_updated"
+                            ]
+                          },
+                          "timestamp": {
+                            "type": "string"
+                          },
+                          "subscriptionId": {
+                            "type": "string"
+                          },
+                          "billingPeriod": {
+                            "type": "string"
+                          },
+                          "totalSubscriptionAmount": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "increase",
+                                  "decrease",
+                                  "no-change"
+                                ]
+                              },
+                              "previousAmount": {},
+                              "newAmount": {},
+                              "difference": {}
+                            },
+                            "required": [
+                              "type",
+                              "previousAmount",
+                              "newAmount",
+                              "difference"
+                            ]
+                          },
+                          "userId": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "userName": {
+                            "type": "string"
+                          },
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "added": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "stripePriceId": {
+                                      "type": "string"
+                                    },
+                                    "categoryId": {
+                                      "type": "string"
+                                    },
+                                    "totalPriceAmount": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "increase",
+                                            "decrease",
+                                            "no-change"
+                                          ]
+                                        },
+                                        "previousAmount": {},
+                                        "newAmount": {},
+                                        "difference": {}
+                                      },
+                                      "required": [
+                                        "type",
+                                        "previousAmount",
+                                        "newAmount",
+                                        "difference"
+                                      ]
+                                    },
+                                    "services": {
+                                      "type": "object",
+                                      "properties": {
+                                        "added": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        },
+                                        "removed": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        },
+                                        "updated": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "stripePriceId",
+                                    "categoryId",
+                                    "totalPriceAmount",
+                                    "services"
+                                  ]
+                                }
+                              },
+                              "removed": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "stripePriceId": {
+                                      "type": "string"
+                                    },
+                                    "categoryId": {
+                                      "type": "string"
+                                    },
+                                    "totalPriceAmount": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "increase",
+                                            "decrease",
+                                            "no-change"
+                                          ]
+                                        },
+                                        "previousAmount": {},
+                                        "newAmount": {},
+                                        "difference": {}
+                                      },
+                                      "required": [
+                                        "type",
+                                        "previousAmount",
+                                        "newAmount",
+                                        "difference"
+                                      ]
+                                    },
+                                    "services": {
+                                      "type": "object",
+                                      "properties": {
+                                        "added": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        },
+                                        "removed": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        },
+                                        "updated": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "stripePriceId",
+                                    "categoryId",
+                                    "totalPriceAmount",
+                                    "services"
+                                  ]
+                                }
+                              },
+                              "updated": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "stripePriceId": {
+                                      "type": "string"
+                                    },
+                                    "categoryId": {
+                                      "type": "string"
+                                    },
+                                    "totalPriceAmount": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "increase",
+                                            "decrease",
+                                            "no-change"
+                                          ]
+                                        },
+                                        "previousAmount": {},
+                                        "newAmount": {},
+                                        "difference": {}
+                                      },
+                                      "required": [
+                                        "type",
+                                        "previousAmount",
+                                        "newAmount",
+                                        "difference"
+                                      ]
+                                    },
+                                    "services": {
+                                      "type": "object",
+                                      "properties": {
+                                        "added": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        },
+                                        "removed": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        },
+                                        "updated": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "productId": {
+                                                "type": "string"
+                                              },
+                                              "categoryId": {
+                                                "type": "string"
+                                              },
+                                              "totalServiceAmount": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "increase",
+                                                      "decrease",
+                                                      "no-change"
+                                                    ]
+                                                  },
+                                                  "previousAmount": {},
+                                                  "newAmount": {},
+                                                  "difference": {}
+                                                },
+                                                "required": [
+                                                  "type",
+                                                  "previousAmount",
+                                                  "newAmount",
+                                                  "difference"
+                                                ]
+                                              },
+                                              "valueChange": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "previousValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  },
+                                                  "newValue": {
+                                                    "oneOf": [
+                                                      {
+                                                        "type": "string"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          false
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "boolean",
+                                                        "enum": [
+                                                          true
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "array",
+                                                        "items": {
+                                                          "type": "string"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "nullable": true
+                                                  }
+                                                },
+                                                "required": [
+                                                  "previousValue",
+                                                  "newValue"
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "productId",
+                                              "categoryId",
+                                              "totalServiceAmount",
+                                              "valueChange"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "stripePriceId",
+                                    "categoryId",
+                                    "totalPriceAmount",
+                                    "services"
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "eventType",
+                          "timestamp",
+                          "subscriptionId",
+                          "billingPeriod",
+                          "totalSubscriptionAmount",
+                          "userId",
+                          "items"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/subscription/products": {
+      "get": {
+        "operationId": "getSubscriptionServices",
+        "summary": "Get Subscription Services",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "services": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "description": "Referenced type: Service (see source contracts for full definition)"
+                          }
+                        },
+                        "source": {
+                          "type": "object",
+                          "description": "Referenced type: ServicesSource (see source contracts for full definition)"
+                        },
+                        "discount": {}
+                      },
+                      "required": [
+                        "services",
+                        "source"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/subscription/update-pending": {
+      "post": {
+        "operationId": "updatePendingSubscription",
+        "summary": "Update Pending Subscription",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "engagementLetterEnvelopeId": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "engagementLetterEnvelopeId"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "ok": {
+                              "type": "boolean",
+                              "enum": [
+                                true
+                              ]
+                            }
+                          },
+                          "required": [
+                            "ok"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "services": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "Referenced type: InputService (see source contracts for full definition)"
+                    }
+                  },
+                  "resendEngagementLetter": {
+                    "type": "boolean",
+                    "enum": [
+                      false,
+                      true
+                    ]
+                  },
+                  "percentageDiscount": {
+                    "type": "number"
+                  },
+                  "removeDiscount": {
+                    "type": "boolean",
+                    "enum": [
+                      false,
+                      true
+                    ]
+                  }
+                },
+                "required": [
+                  "services"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/subscription/update": {
+      "post": {
+        "operationId": "updateSubscription",
+        "summary": "Update Subscription",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "description": "Referenced type: Subscription (see source contracts for full definition)"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_REQUEST"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_FOUND"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error: INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "details"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_SERVER_ERROR"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "services": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "Referenced type: InputService (see source contracts for full definition)"
+                    }
+                  }
+                },
+                "required": [
+                  "services"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
